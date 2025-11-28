@@ -60,7 +60,7 @@ export default function SearchResults({ results, loading }: SearchResultsProps) 
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
         </svg>
         <h3 className="mt-4 text-lg font-medium text-linear-text">Aucun profil trouvé</h3>
-        <p className="mt-2 text-linear-muted">Essayez d'ajuster vos filtres pour voir plus de résultats</p>
+        <p className="mt-2 text-linear-muted">Essayez d&apos;ajuster vos filtres pour voir plus de résultats</p>
       </div>
     );
   }
@@ -98,7 +98,7 @@ export default function SearchResults({ results, loading }: SearchResultsProps) 
               <div>
                 <h4 className="text-lg font-semibold text-linear-text mb-1">{profile.position}</h4>
                 <div className="flex items-center gap-4 text-sm text-linear-muted">
-                  <span>{getExperienceLabel(profile.yearsOfExperience)} d'expérience</span>
+                  <span>{getExperienceLabel(profile.yearsOfExperience)} d&apos;expérience</span>
                   <span>•</span>
                   <span>{profile.location}</span>
                   <span>•</span>

@@ -69,7 +69,7 @@ export default function SearchFilters({ onSearch }: SearchFiltersProps) {
         {/* Années d'expérience */}
         <div>
           <label htmlFor="experience" className="block text-sm font-medium text-linear-text mb-2">
-            Ton nombre d'années d'expérience dans le produit
+            Ton nombre d&apos;années d&apos;expérience dans le produit
           </label>
           <input
             id="experience"
@@ -86,7 +86,7 @@ export default function SearchFilters({ onSearch }: SearchFiltersProps) {
         {/* Localisation */}
         <div>
           <label htmlFor="location" className="block text-sm font-medium text-linear-text mb-2">
-            Ton lieu d'habitation
+            Ton lieu d&apos;habitation
           </label>
           <select
             id="location"
@@ -120,7 +120,7 @@ export default function SearchFilters({ onSearch }: SearchFiltersProps) {
       </div>
 
       <div className="text-sm text-linear-muted">
-        Les résultats s'affinent automatiquement en fonction de tes critères
+        Les résultats s&apos;affinent automatiquement en fonction de tes critères
       </div>
     </div>
   );
