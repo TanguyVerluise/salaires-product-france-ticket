@@ -1,5 +1,6 @@
 import Database from 'better-sqlite3';
 import path from 'path';
+import { randomUUID } from 'crypto';
 import { encrypt, decrypt } from './encryption';
 import type { SalaryProfile, SearchFilters } from '@/types';
 
@@ -52,7 +53,7 @@ function getDatabase(): Database.Database {
  */
 export function createProfile(profile: Omit<SalaryProfile, 'id' | 'createdAt'>): SalaryProfile {
   const db = getDatabase();
-  const id = crypto.randomUUID();
+  const id = randomUUID();
   const createdAt = new Date().toISOString();
 
   // Chiffrer le salaire avant de le stocker
