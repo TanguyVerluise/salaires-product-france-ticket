@@ -7,14 +7,18 @@ import CryptoJS from 'crypto-js';
 
 const ENCRYPTION_KEY = process.env.ENCRYPTION_KEY || '';
 
-if (!ENCRYPTION_KEY && process.env.NODE_ENV === 'production') {
-  throw new Error('ENCRYPTION_KEY must be set in production');
+// Fonction pour vérifier la clé au runtime
+function checkEncryptionKey() {
+  if (!ENCRYPTION_KEY && process.env.NODE_ENV === 'production') {
+    throw new Error('ENCRYPTION_KEY must be set in production');
+  }
 }
 
 /**
  * Chiffre une valeur avec AES-256
  */
 export function encrypt(value: string): string {
+  checkEncryptionKey();
   if (!ENCRYPTION_KEY) {
     // En développement, on utilise une clé par défaut (à ne JAMAIS utiliser en prod)
     console.warn('⚠️  Using default encryption key - DO NOT USE IN PRODUCTION');
@@ -28,6 +32,7 @@ export function encrypt(value: string): string {
  * Déchiffre une valeur chiffrée avec AES-256
  */
 export function decrypt(encryptedValue: string): string {
+  checkEncryptionKey();
   if (!ENCRYPTION_KEY) {
     const devKey = 'dev-key-only-for-local-development-change-in-prod';
     const bytes = CryptoJS.AES.decrypt(encryptedValue, devKey);
