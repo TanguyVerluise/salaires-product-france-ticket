@@ -3,7 +3,7 @@
  * Usage: npm run seed
  */
 
-import { createProfile } from '../lib/database';
+import { createProfile, getStats } from '../lib/database';
 
 const sampleProfiles = [
   // Product Managers
@@ -53,6 +53,18 @@ const sampleProfiles = [
 
 async function seedDatabase() {
   console.log('🌱 Starting database seeding...');
+
+  // Vérifier si la base de données contient déjà des profils
+  try {
+    const stats = getStats();
+    if (stats.totalProfiles > 0) {
+      console.log(`ℹ️  Database already contains ${stats.totalProfiles} profiles. Skipping seed.`);
+      console.log('   To reset the database, delete the data/salaries.db file and run this script again.');
+      return;
+    }
+  } catch (error) {
+    console.log('   Database is empty or doesn\'t exist yet. Proceeding with seeding...');
+  }
 
   let successCount = 0;
   let errorCount = 0;
