@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Le Ticket — Sélecteur de versions</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    body { font-family: 'Inter', sans-serif; background: #F8F9FA; color: #0C1628; }
+    .font-serif { font-family: 'DM Serif Display', Georgia, serif; }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-center p-8">
+  <div class="max-w-3xl w-full">
+    <div class="text-center mb-12">
+      <div class="inline-flex items-center gap-2 bg-white border border-gray-200 rounded-full px-4 py-1.5 text-sm text-gray-500 mb-6">
+        Le Ticket · Homepage
+      </div>
+      <h1 class="font-serif text-4xl text-gray-900 mb-3">Choisir une version</h1>
+      <p class="text-gray-500">Quatre itérations de la homepage. Dis-moi ce que tu aimes dans chacune.</p>
+    </div>
+
+    <div class="grid gap-4">
+
+      <!-- V1 -->
+      <a href="v1.html" target="_blank"
+         class="group bg-white border border-gray-200 rounded-2xl p-6 flex items-start gap-5 hover:border-gray-400 hover:shadow-md transition-all">
+        <div class="w-12 h-12 rounded-xl bg-amber-50 border border-amber-100 flex items-center justify-center text-xl flex-shrink-0">
+          1
+        </div>
+        <div class="flex-1">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="font-semibold text-gray-900">Version 1</span>
+            <span class="text-xs bg-gray-100 text-gray-500 rounded-full px-2 py-0.5">Éditoriale &amp; sobre</span>
+          </div>
+          <p class="text-sm text-gray-500 leading-relaxed">
+            Inspirée de First Round Review. Fond crème, typographie éditoriale, posture humble. Présentation des entreprises en liste. Pas encore de contenu réel du site.
+          </p>
+        </div>
+        <span class="text-gray-300 group-hover:text-gray-600 transition-colors text-lg">→</span>
+      </a>
+
+      <!-- V2 -->
+      <a href="v2.html" target="_blank"
+         class="group bg-white border border-gray-200 rounded-2xl p-6 flex items-start gap-5 hover:border-gray-400 hover:shadow-md transition-all">
+        <div class="w-12 h-12 rounded-xl bg-teal-50 border border-teal-100 flex items-center justify-center text-xl flex-shrink-0">
+          2
+        </div>
+        <div class="flex-1">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="font-semibold text-gray-900">Version 2</span>
+            <span class="text-xs bg-gray-100 text-gray-500 rounded-full px-2 py-0.5">Contenu réel · Plus affirmée</span>
+          </div>
+          <p class="text-sm text-gray-500 leading-relaxed">
+            Basée sur le contenu scraité du site le-ticket.fr. Sections sombres, gradients teal, onglets podcast Épique / The Product Tape. Titre plus ambitieux.
+          </p>
+        </div>
+        <span class="text-gray-300 group-hover:text-gray-600 transition-colors text-lg">→</span>
+      </a>
+
+      <!-- V3 -->
+      <a href="v3.html" target="_blank"
+         class="group bg-white border border-gray-200 rounded-2xl p-6 flex items-start gap-5 hover:border-gray-400 hover:shadow-md transition-all">
+        <div class="w-12 h-12 rounded-xl bg-green-50 border border-green-100 flex items-center justify-center text-xl flex-shrink-0">
+          3
+        </div>
+        <div class="flex-1">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="font-semibold text-gray-900">Version 3</span>
+            <span class="text-xs bg-gray-100 text-gray-500 rounded-full px-2 py-0.5">Sidebar + UI v1</span>
+          </div>
+          <p class="text-sm text-gray-500 leading-relaxed">
+            UI sobre (fonds blancs), titre humble, entreprises en badges, section JTBD, podcasts indifférenciés, section vidéos, fiches de lecture en avant, premium enrichi (WhatsApp, formations IA, conférences).
+          </p>
+        </div>
+        <span class="text-gray-300 group-hover:text-gray-600 transition-colors text-lg">→</span>
+      </a>
+
+      <!-- V4 -->
+      <a href="v4.html" target="_blank"
+         class="group bg-white border border-teal-200 rounded-2xl p-6 flex items-start gap-5 hover:border-teal-400 hover:shadow-md transition-all">
+        <div class="w-12 h-12 rounded-xl bg-teal-600 border border-teal-700 flex items-center justify-center text-xl flex-shrink-0 text-white font-semibold">
+          4
+        </div>
+        <div class="flex-1">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="font-semibold text-gray-900">Version 4</span>
+            <span class="text-xs bg-teal-100 text-teal-700 rounded-full px-2 py-0.5">Dernière version ✦</span>
+          </div>
+          <p class="text-sm text-gray-500 leading-relaxed">
+            Structure sidebar v3 + UI magazine v1 (fond crème, DM Serif). Hero v1, entreprises membres premium, social proof haut, blocs JTBD réutilisables (App Store), guides, fiches de lecture, vidéos.
+          </p>
+        </div>
+        <span class="text-gray-300 group-hover:text-teal-600 transition-colors text-lg">→</span>
+      </a>
+
+    </div>
+
+    <p class="text-center text-xs text-gray-400 mt-8">Chaque version s'ouvre dans un nouvel onglet</p>
+  </div>
+</body>
+</html>

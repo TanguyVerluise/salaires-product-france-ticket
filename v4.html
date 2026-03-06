@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Le Ticket — Le média des équipes tech européennes</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ── Base ────────────────────────────────────────────── */
+    :root {
+      --cream:        #F7F6F3;
+      --cream-border: #E5E0D8;
+      --ink:          #0C1628;
+      --ink-light:    #4B5563;
+      --ink-muted:    #9CA3AF;
+      --teal:         #0F5744;
+      --teal-mid:     #1A6655;
+      --teal-light:   #EBF6F0;
+      --amber:        #E8A020;
+      --sidebar-w:    260px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', -apple-system, sans-serif; background: var(--cream); color: var(--ink); -webkit-font-smoothing: antialiased; }
+    .font-serif { font-family: 'DM Serif Display', Georgia, serif; }
+    a { text-decoration: none; color: inherit; }
+
+    /* ── Layout ──────────────────────────────────────────── */
+    .app-wrap { display: flex; min-height: 100vh; }
+    .sidebar {
+      width: var(--sidebar-w); flex-shrink: 0;
+      background: var(--teal);
+      position: sticky; top: 0; height: 100vh;
+      overflow-y: auto; display: flex; flex-direction: column;
+      padding: 1.75rem 1.5rem;
+    }
+    .sidebar::-webkit-scrollbar { width: 3px; }
+    .sidebar::-webkit-scrollbar-thumb { background: rgba(255,255,255,.15); border-radius: 3px; }
+    .main { flex: 1; min-width: 0; background: var(--cream); }
+
+    /* ── Sidebar nav ─────────────────────────────────────── */
+    .sb-logo { font-family: 'DM Serif Display', Georgia, serif; font-size: 22px; color: #fff; display: flex; align-items: center; gap: 10px; margin-bottom: 1.75rem; }
+    .sb-logo-icon { width: 28px; height: 28px; background: #fff; border-radius: 6px; display: flex; align-items: center; justify-content: center; }
+    .sb-logo-icon svg { width: 16px; height: 16px; }
+    .sb-btn-primary { display: block; background: var(--amber); color: #fff; font-weight: 700; font-size: 13px; text-align: center; padding: 10px; border-radius: 8px; margin-bottom: 8px; transition: opacity .15s; }
+    .sb-btn-primary:hover { opacity: .9; }
+    .sb-btn-secondary { display: block; border: 1px solid rgba(255,255,255,.25); color: rgba(255,255,255,.85); font-size: 13px; font-weight: 500; text-align: center; padding: 9px; border-radius: 8px; margin-bottom: 1.25rem; transition: border-color .15s; }
+    .sb-btn-secondary:hover { border-color: rgba(255,255,255,.55); }
+    .sb-search { display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,.1); border-radius: 8px; padding: 8px 12px; margin-bottom: 1.75rem; }
+    .sb-search input { background: transparent; border: none; outline: none; font-size: 12px; color: rgba(255,255,255,.7); width: 100%; }
+    .sb-search input::placeholder { color: rgba(255,255,255,.45); }
+    .sb-section-label { font-size: 9px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: rgba(255,255,255,.35); margin-bottom: .6rem; }
+    .sb-nav-link { display: block; font-size: 13px; color: rgba(255,255,255,.72); padding: 5px 0; transition: color .15s; }
+    .sb-nav-link:hover { color: #fff; }
+    .sb-divider { border: none; border-top: 1px solid rgba(255,255,255,.1); margin: 1.25rem 0; }
+
+    /* ── Gradient image placeholders ─────────────────────── */
+    .img-blue   { background: linear-gradient(135deg, #1E3A8A, #2563EB 60%, #60A5FA); }
+    .img-green  { background: linear-gradient(135deg, #064E3B, #059669 60%, #6EE7B7); }
+    .img-amber  { background: linear-gradient(135deg, #78350F, #D97706 60%, #FCD34D); }
+    .img-purple { background: linear-gradient(135deg, #4C1D95, #7C3AED 60%, #C4B5FD); }
+    .img-rose   { background: linear-gradient(135deg, #881337, #E11D48 60%, #FDA4AF); }
+    .img-slate  { background: linear-gradient(135deg, #1E293B, #475569 60%, #94A3B8); }
+    .img-teal-d { background: linear-gradient(135deg, #0F5744, #1A6655 50%, #34D399); }
+    .img-navy   { background: linear-gradient(135deg, #0C1628, #1E3A5F 60%, #4B9FFF); }
+    .img-indigo { background: linear-gradient(135deg, #312E81, #4F46E5 60%, #A5B4FC); }
+
+    /* ── Tags & badges ───────────────────────────────────── */
+    .tag { font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 9999px; display: inline-block; }
+    .tag-ia         { background: #EDE9FE; color: #5B21B6; }
+    .tag-product    { background: #DBEAFE; color: #1E40AF; }
+    .tag-growth     { background: #D1FAE5; color: #065F46; }
+    .tag-leadership { background: #FEF3C7; color: #92400E; }
+    .tag-tech       { background: #F1F5F9; color: #334155; }
+    .tag-strategie  { background: #FCE7F3; color: #9D174D; }
+    .tag-emission   { background: #FEF3C7; color: #92400E; }
+    .badge { font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 9999px; display: inline-block; }
+    .badge-premium { background: #FEF3C7; color: #92400E; border: 1px solid #FDE68A; }
+    .badge-free    { background: #D1FAE5; color: #065F46; }
+
+    /* ── Article cards ───────────────────────────────────── */
+    .article-card { transition: transform .2s ease, box-shadow .2s ease; cursor: pointer; }
+    .article-card:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(12,22,40,.1); }
+
+    /* ── JTBD reusable block ─────────────────────────────── */
+    .jtbd-section { padding: 3.5rem 3rem; border-bottom: 1px solid var(--cream-border); }
+    .jtbd-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 1.75rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--cream-border); }
+    .jtbd-title { font-family: 'DM Serif Display', Georgia, serif; font-size: 32px; color: var(--ink); line-height: 1.15; }
+    .jtbd-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+
+    /* Featured card (left of JTBD grid) */
+    .featured-card { background: #fff; border-radius: 16px; overflow: hidden; border: 1px solid var(--cream-border); box-shadow: 0 1px 3px rgba(0,0,0,.04); }
+    .featured-card .img-zone { height: 210px; position: relative; }
+    .featured-card .img-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,.45), transparent); }
+    .featured-card .img-tags { position: absolute; top: 14px; left: 14px; display: flex; gap: 6px; }
+    .featured-card .img-time { position: absolute; bottom: 14px; left: 14px; font-size: 11px; color: rgba(255,255,255,.8); }
+    .featured-card .card-body { padding: 1.25rem 1.375rem; }
+    .featured-card .card-title { font-family: 'DM Serif Display', Georgia, serif; font-size: 20px; line-height: 1.3; color: var(--ink); margin-bottom: .625rem; }
+    .featured-card .card-desc { font-size: 13px; color: #6B7280; line-height: 1.6; margin-bottom: 1rem; }
+    .featured-card .card-footer { display: flex; justify-content: space-between; align-items: center; padding-top: .875rem; border-top: 1px solid #F3F4F6; }
+
+    /* Compact stack (right of JTBD grid) */
+    .compact-stack { background: #fff; border-radius: 16px; border: 1px solid var(--cream-border); overflow: hidden; }
+    .compact-item { display: flex; gap: .875rem; padding: 1rem 1.125rem; border-bottom: 1px solid #F3F4F6; transition: background .15s; cursor: pointer; }
+    .compact-item:last-child { border-bottom: none; }
+    .compact-item:hover { background: #FAFAF9; }
+    .compact-thumb { width: 72px; height: 72px; border-radius: 10px; flex-shrink: 0; }
+    .compact-title { font-family: 'DM Serif Display', Georgia, serif; font-size: 14px; line-height: 1.4; color: var(--ink); margin-top: 4px; }
+    .compact-meta { font-size: 11px; color: var(--ink-muted); margin-top: 4px; }
+
+    /* ── Testimonials ────────────────────────────────────── */
+    .testimonial-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: .875rem; }
+    .testimonial-card { background: #fff; border: 1px solid var(--cream-border); border-radius: 14px; padding: 1.125rem 1.25rem; }
+    .testimonial-card p { font-size: 13px; color: var(--ink-light); line-height: 1.65; font-style: italic; margin-bottom: .875rem; }
+    .testimonial-author { display: flex; align-items: center; gap: .625rem; }
+    .avatar { width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 10px; font-weight: 700; flex-shrink: 0; }
+
+    /* ── Video cards ─────────────────────────────────────── */
+    .video-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+    .video-card { background: #fff; border-radius: 14px; overflow: hidden; border: 1px solid var(--cream-border); transition: transform .2s, box-shadow .2s; cursor: pointer; }
+    .video-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(12,22,40,.1); }
+    .video-thumb { height: 160px; position: relative; }
+    .play-overlay { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+    .play-circle { width: 44px; height: 44px; background: rgba(255,255,255,.88); border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+    .play-circle svg { margin-left: 3px; }
+
+    /* ── Premium table ───────────────────────────────────── */
+    .pricing-grid { display: grid; grid-template-columns: 1fr 1.15fr; gap: 1.25rem; }
+    .pricing-card { background: #fff; border: 1px solid var(--cream-border); border-radius: 16px; padding: 2rem; }
+    .pricing-card.highlighted { background: var(--ink); border-color: var(--ink); }
+    .check-item { display: flex; align-items: flex-start; gap: .625rem; font-size: 14px; color: var(--ink-light); margin-bottom: .625rem; }
+    .check-icon { width: 18px; height: 18px; border-radius: 50%; background: #D1FAE5; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+    .check-icon-premium { background: rgba(232,160,32,.2); }
+    .cross-item { display: flex; align-items: flex-start; gap: .625rem; font-size: 14px; color: var(--ink-muted); text-decoration: line-through; margin-bottom: .625rem; }
+    .cross-icon { width: 18px; height: 18px; border-radius: 50%; background: #F3F4F6; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+
+    /* ── Utilities ───────────────────────────────────────── */
+    .eyebrow { font-size: 10px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: .375rem; }
+    .link-teal { font-size: 13px; font-weight: 600; color: var(--teal-mid); white-space: nowrap; }
+    .link-teal:hover { color: var(--teal); }
+    .section-pad { padding: 3.5rem 3rem; }
+    .section-pad-sm { padding: 2rem 3rem; }
+    .section-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 1.75rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--cream-border); }
+    .border-section { border-bottom: 1px solid var(--cream-border); }
+    .bg-white-section { background: #fff; }
+    .bg-cream-section { background: var(--cream); }
+
+    /* ── Fiches callout ──────────────────────────────────── */
+    .fiches-callout { background: var(--teal-light); border: 1px solid #BFE4D5; border-radius: 14px; padding: 1.5rem 2rem; display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; margin-top: 1.5rem; }
+  </style>
+</head>
+<body>
+<div class="app-wrap">
+
+  <!-- ═══════════════════════════════════════════════════════
+       SIDEBAR
+  ════════════════════════════════════════════════════════ -->
+  <aside class="sidebar">
+    <!-- Logo -->
+    <a href="/" class="sb-logo">
+      <div class="sb-logo-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#0F5744" stroke-width="2.5">
+          <path d="M4 6h16M4 12h10M4 18h13" stroke-linecap="round"/>
+        </svg>
+      </div>
+      LeTicket
+    </a>
+
+    <!-- CTAs -->
+    <a href="#" class="sb-btn-primary">Devenir Premium</a>
+    <a href="#" class="sb-btn-secondary">Se connecter</a>
+
+    <!-- Search -->
+    <div class="sb-search">
+      <svg width="13" height="13" fill="none" stroke="rgba(255,255,255,.45)" stroke-width="2" viewBox="0 0 24 24">
+        <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35" stroke-linecap="round"/>
+      </svg>
+      <input type="text" placeholder="Chercher un article…" />
+    </div>
+
+    <!-- Nav: ressources -->
+    <p class="sb-section-label">200+ Ressources</p>
+    <a href="#" class="sb-nav-link">Tous les articles</a>
+    <a href="#" class="sb-nav-link">La newsletter</a>
+    <a href="#" class="sb-nav-link">Les podcasts du Ticket</a>
+    <a href="#" class="sb-nav-link">Les évènements Produit</a>
+
+    <hr class="sb-divider" />
+
+    <!-- Nav: premium -->
+    <p class="sb-section-label">⚡ Les avantages Premium</p>
+    <a href="#" class="sb-nav-link">Les Émissions du Ticket</a>
+    <a href="#" class="sb-nav-link">Les Guides</a>
+    <a href="#" class="sb-nav-link">Les fiches de lecture</a>
+
+    <hr class="sb-divider" />
+
+    <!-- Nav: boutique -->
+    <p class="sb-section-label">Boutique</p>
+    <a href="#" class="sb-nav-link">Les Formations du Ticket</a>
+    <a href="#" class="sb-nav-link">Le Roadbook</a>
+  </aside>
+
+  <!-- ═══════════════════════════════════════════════════════
+       MAIN CONTENT
+  ════════════════════════════════════════════════════════ -->
+  <main class="main">
+
+    <!-- ── Announcement bar ─────────────────────────────── -->
+    <div style="background:#0C1628; color:#fff; font-size:12px; text-align:center; padding:9px 2rem;">
+      <span style="opacity:.55">Nouveau →</span>
+      <strong style="margin:0 4px;">Canal WhatsApp exclusif</strong>
+      <span style="opacity:.55">réservé aux membres Premium</span>
+      <span style="opacity:.2; margin:0 .75rem;">|</span>
+      <a href="#" style="color:#fff; opacity:.75; text-decoration:underline; text-underline-offset:2px;">Rejoindre la communauté</a>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════
+         HERO — v1 visual style adapted to sidebar layout
+    ═════════════════════════════════════════════════════ -->
+    <section style="padding:3.5rem 3rem 3rem; border-bottom:1px solid var(--cream-border);">
+      <div style="display:grid; grid-template-columns:1.1fr 0.9fr; gap:3rem; align-items:start;">
+
+        <!-- Left: manifesto -->
+        <div>
+          <div style="display:flex; align-items:center; gap:.75rem; margin-bottom:1.75rem;">
+            <div style="width:28px; height:1px; background:var(--teal);"></div>
+            <span style="font-size:10px; font-weight:600; letter-spacing:.18em; text-transform:uppercase; color:var(--teal);">Le média des équipes tech européennes</span>
+          </div>
+
+          <h1 class="font-serif" style="font-size:52px; line-height:1.06; color:var(--ink); margin-bottom:1.375rem;">
+            Les ressorts des géants tech qui façonnent l'Europe
+          </h1>
+
+          <p style="font-size:16px; color:var(--ink-light); line-height:1.7; margin-bottom:2rem; max-width:480px;">
+            Des analyses approfondies sur le product, l'IA, la growth et le leadership tech. Pensées pour les CEO, CPO et CTO qui construisent à l'échelle mondiale.
+          </p>
+
+          <div style="display:flex; gap:.75rem; flex-wrap:wrap; margin-bottom:2.25rem;">
+            <a href="#" style="background:var(--amber); color:#fff; font-weight:700; font-size:13.5px; padding:11px 22px; border-radius:9999px;">Devenir Premium — 200 €/an →</a>
+            <a href="#" style="border:2px solid var(--ink); color:var(--ink); font-weight:600; font-size:13.5px; padding:10px 22px; border-radius:9999px;">S'inscrire gratuitement</a>
+          </div>
+
+          <!-- Stats (v1 style) -->
+          <div style="display:flex; align-items:center; gap:1.5rem; padding-top:1.75rem; border-top:1px solid var(--cream-border); flex-wrap:wrap;">
+            <div>
+              <span class="font-serif" style="display:block; font-size:28px; color:var(--ink);">500+</span>
+              <span style="font-size:12px; color:var(--ink-muted);">articles publiés</span>
+            </div>
+            <div style="width:1px; height:36px; background:var(--cream-border);"></div>
+            <div>
+              <span class="font-serif" style="display:block; font-size:28px; color:var(--ink);">7 000</span>
+              <span style="font-size:12px; color:var(--ink-muted);">lecteurs mensuels</span>
+            </div>
+            <div style="width:1px; height:36px; background:var(--cream-border);"></div>
+            <div>
+              <span class="font-serif" style="display:block; font-size:28px; color:var(--ink);">4 ans</span>
+              <span style="font-size:12px; color:var(--ink-muted);">de contenus</span>
+            </div>
+            <div style="width:1px; height:36px; background:var(--cream-border);"></div>
+            <div>
+              <span class="font-serif" style="display:block; font-size:28px; color:var(--ink);">12–15 min</span>
+              <span style="font-size:12px; color:var(--ink-muted);">par article</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: 2 featured articles -->
+        <div style="display:flex; flex-direction:column; gap:.75rem;">
+
+          <!-- Main card -->
+          <div class="article-card" style="background:#fff; border-radius:16px; overflow:hidden; border:1px solid var(--cream-border); box-shadow:0 1px 4px rgba(0,0,0,.04);">
+            <div class="img-blue" style="height:196px; position:relative;">
+              <div style="position:absolute; inset:0; background:linear-gradient(to top, rgba(0,0,0,.42), transparent);"></div>
+              <div style="position:absolute; top:14px; left:14px; display:flex; gap:6px;">
+                <span class="tag tag-ia">INTELLIGENCE ARTIFICIELLE</span>
+                <span class="badge badge-premium">PREMIUM</span>
+              </div>
+              <div style="position:absolute; bottom:12px; left:14px; font-size:10px; color:rgba(255,255,255,.75);">12 min de lecture</div>
+            </div>
+            <div style="padding:1.125rem 1.25rem;">
+              <h2 class="font-serif" style="font-size:18px; line-height:1.35; color:var(--ink); margin-bottom:.5rem;">Comment les CPTO européens réinventent leurs roadmaps à l'ère de l'IA générative</h2>
+              <p style="font-size:12px; color:#6B7280; line-height:1.6; margin-bottom:.875rem;">De Doctolib à Contentsquare, les responsables produit témoignent de leur transformation.</p>
+              <div style="display:flex; justify-content:space-between; align-items:center; padding-top:.75rem; border-top:1px solid #F3F4F6;">
+                <span style="font-size:11px; color:var(--ink-muted);">Marie Laurent</span>
+                <a href="#" class="link-teal">Lire l'article →</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Secondary card (compact) -->
+          <div class="article-card" style="background:#fff; border-radius:12px; border:1px solid var(--cream-border); padding:.875rem 1rem; display:flex; gap:.875rem; align-items:center;">
+            <div class="img-green" style="width:60px; height:60px; border-radius:9px; flex-shrink:0;"></div>
+            <div>
+              <div style="display:flex; gap:6px; align-items:center; margin-bottom:4px;">
+                <span class="tag tag-growth">GROWTH</span>
+                <span style="font-size:10px; color:var(--ink-muted);">9 min</span>
+              </div>
+              <h3 class="font-serif" style="font-size:14px; line-height:1.4; color:var(--ink);">La méthode growth de Spotify, décryptée pour les scale-ups européennes</h3>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════
+         COMPANIES — premium members (v1 style)
+    ═════════════════════════════════════════════════════ -->
+    <section style="background:#fff; border-bottom:1px solid var(--cream-border); padding:2rem 3rem;">
+      <p style="font-size:10px; font-weight:600; letter-spacing:.16em; text-transform:uppercase; color:#B0A898; text-align:center; margin-bottom:1.375rem;">
+        Les équipes de ces entreprises sont membres Premium du Ticket
+      </p>
+      <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:1.5rem 2.75rem;">
+        <span style="font-weight:700; font-size:16px; color:var(--ink); opacity:.45; transition:opacity .2s; cursor:default;" onmouseover="this.style.opacity='.8'" onmouseout="this.style.opacity='.45'">Doctolib</span>
+        <span style="font-weight:700; font-size:16px; color:var(--ink); opacity:.45; cursor:default;" onmouseover="this.style.opacity='.8'" onmouseout="this.style.opacity='.45'">BlaBlaCar</span>
+        <span style="font-weight:700; font-size:16px; color:var(--ink); opacity:.45; cursor:default;" onmouseover="this.style.opacity='.8'" onmouseout="this.style.opacity='.45'">Qonto</span>
+        <span style="font-weight:700; font-size:16px; color:var(--ink); opacity:.45; cursor:default;" onmouseover="this.style.opacity='.8'" onmouseout="this.style.opacity='.45'">Mirakl</span>
+        <span style="font-weight:700; font-size:16px; color:var(--ink); opacity:.45; cursor:default;" onmouseover="this.style.opacity='.8'" onmouseout="this.style.opacity='.45'">Scaleway</span>
+        <span style="font-weight:700; font-size:16px; color:var(--ink); opacity:.45; cursor:default;" onmouseover="this.style.opacity='.8'" onmouseout="this.style.opacity='.45'">Pennylane</span>
+        <span style="font-weight:700; font-size:16px; color:var(--ink); opacity:.45; cursor:default;" onmouseover="this.style.opacity='.8'" onmouseout="this.style.opacity='.45'">Yousign</span>
+        <span style="font-weight:700; font-size:16px; color:var(--ink); opacity:.45; cursor:default;" onmouseover="this.style.opacity='.8'" onmouseout="this.style.opacity='.45'">Dust</span>
+        <span style="font-weight:700; font-size:16px; color:var(--ink); opacity:.45; cursor:default;" onmouseover="this.style.opacity='.8'" onmouseout="this.style.opacity='.45'">TheFork</span>
+        <span style="font-weight:700; font-size:16px; color:var(--ink); opacity:.45; cursor:default;" onmouseover="this.style.opacity='.8'" onmouseout="this.style.opacity='.45'">Fleet</span>
+        <span style="font-weight:700; font-size:16px; color:var(--ink); opacity:.45; cursor:default;" onmouseover="this.style.opacity='.8'" onmouseout="this.style.opacity='.45'">Malt</span>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════
+         SOCIAL PROOF — testimonials (moved HIGH)
+    ═════════════════════════════════════════════════════ -->
+    <section style="padding:2.5rem 3rem; border-bottom:1px solid var(--cream-border);">
+      <div style="display:flex; align-items:flex-end; justify-content:space-between; margin-bottom:1.25rem;">
+        <div>
+          <p class="eyebrow">7 000 lecteurs chaque mois</p>
+          <h2 class="font-serif" style="font-size:28px; color:var(--ink);">Lu par des équipes qui font la tech</h2>
+        </div>
+      </div>
+      <div class="testimonial-grid">
+        <div class="testimonial-card">
+          <p>"Le meilleur média produit francophone. Des articles qui changent vraiment la façon dont on pense le produit."</p>
+          <div class="testimonial-author">
+            <div class="avatar img-teal-d" style="font-size:9px;">EA</div>
+            <div>
+              <div style="font-size:12px; font-weight:600; color:var(--ink);">Enzo Avigo</div>
+              <div style="font-size:11px; color:var(--ink-muted);">Co-fondateur · June.so</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <p>"Indispensable pour rester au courant des pratiques des meilleures boîtes tech européennes."</p>
+          <div class="testimonial-author">
+            <div class="avatar img-navy" style="font-size:9px;">CP</div>
+            <div>
+              <div style="font-size:12px; font-weight:600; color:var(--ink);">Christopher Parola</div>
+              <div style="font-size:11px; color:var(--ink-muted);">CPO · Yousign</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <p>"La newsletter que j'attends chaque semaine. Toujours actionnable, jamais du bruit."</p>
+          <div class="testimonial-author">
+            <div class="avatar img-rose" style="font-size:9px;">CI</div>
+            <div>
+              <div style="font-size:12px; font-weight:600; color:var(--ink);">Claire Idelot</div>
+              <div style="font-size:11px; color:var(--ink-muted);">CPO · Ilek</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <p>"Le seul média qui couvre l'IA produit avec le niveau de profondeur qu'elle mérite."</p>
+          <div class="testimonial-author">
+            <div class="avatar img-purple" style="font-size:9px;">FB</div>
+            <div>
+              <div style="font-size:12px; font-weight:600; color:var(--ink);">Frédéric Bardolle</div>
+              <div style="font-size:11px; color:var(--ink-muted);">Lead PM AI · Scaleway</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════
+         JTBD BLOCK 1 — Ce qu'il faut avoir lu (must-reads)
+    ═════════════════════════════════════════════════════ -->
+    <section class="jtbd-section bg-white-section" style="background:#fff;">
+      <div class="jtbd-header">
+        <div>
+          <p class="eyebrow">Essentiel</p>
+          <h2 class="jtbd-title">Ce qu'il faut avoir lu</h2>
+        </div>
+        <a href="#" class="link-teal">Voir tout →</a>
+      </div>
+      <div class="jtbd-grid">
+        <!-- Featured -->
+        <div class="featured-card article-card">
+          <div class="img-rose img-zone">
+            <div class="img-overlay"></div>
+            <div class="img-tags">
+              <span class="tag tag-strategie">STRATÉGIE</span>
+              <span class="badge badge-premium">PREMIUM</span>
+            </div>
+            <span class="img-time">15 min de lecture</span>
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">BlaBlaCar à 10 ans : Nicolas Brusson revient sur les pivots qui ont tout changé</h3>
+            <p class="card-desc">Comment la scale-up est passée d'un service de covoiturage local à un groupe de mobilité présent dans 21 pays.</p>
+            <div class="card-footer">
+              <span style="font-size:11px; color:var(--ink-muted);">Jean Dumas · 4 mars 2026</span>
+              <a href="#" class="link-teal">Lire →</a>
+            </div>
+          </div>
+        </div>
+        <!-- Compact stack -->
+        <div class="compact-stack">
+          <div class="compact-item">
+            <div class="compact-thumb img-blue"></div>
+            <div>
+              <div style="display:flex; gap:5px; align-items:center;">
+                <span class="tag tag-ia">IA</span>
+                <span class="badge badge-premium" style="font-size:9px;">PREMIUM</span>
+              </div>
+              <h4 class="compact-title">Comment les CPTO européens réinventent leurs roadmaps à l'ère de l'IA générative</h4>
+              <p class="compact-meta">Marie Laurent · 12 min</p>
+            </div>
+          </div>
+          <div class="compact-item">
+            <div class="compact-thumb img-purple"></div>
+            <div>
+              <span class="tag tag-product">PRODUCT</span>
+              <h4 class="compact-title">Le framework OKR de Figma, décrypté par son ex-VP Product</h4>
+              <p class="compact-meta">Sophie Martin · 11 min</p>
+            </div>
+          </div>
+          <div class="compact-item">
+            <div class="compact-thumb img-amber"></div>
+            <div>
+              <div style="display:flex; gap:5px; align-items:center;">
+                <span class="tag tag-strategie">STRATÉGIE</span>
+                <span class="badge badge-premium" style="font-size:9px;">PREMIUM</span>
+              </div>
+              <h4 class="compact-title">Product-Market Fit : Le framework de First Round Capital pour réussir à percer sur un marché</h4>
+              <p class="compact-meta">Todd Jackson · 13 min</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════
+         JTBD BLOCK 2 — Je veux me former à l'IA
+    ═════════════════════════════════════════════════════ -->
+    <section class="jtbd-section">
+      <div class="jtbd-header">
+        <div>
+          <p class="eyebrow">Pourquoi lire Le Ticket</p>
+          <h2 class="jtbd-title">Je veux me former à l'IA</h2>
+        </div>
+        <a href="#" class="link-teal">Voir tout →</a>
+      </div>
+      <div class="jtbd-grid">
+        <div class="featured-card article-card">
+          <div class="img-teal-d img-zone">
+            <div class="img-overlay"></div>
+            <div class="img-tags">
+              <span class="tag tag-ia">INTELLIGENCE ARTIFICIELLE</span>
+              <span class="badge badge-premium">PREMIUM</span>
+            </div>
+            <span class="img-time">14 min de lecture</span>
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">Comment Skello a bâti un assistant IA pour les RH basé sur architecture MCP</h3>
+            <p class="card-desc">Aude Clerc, Staff AI PM chez Skello, détaille l'architecture, les choix techniques et les pièges évités.</p>
+            <div class="card-footer">
+              <span style="font-size:11px; color:var(--ink-muted);">Aude Clerc · Skello</span>
+              <a href="#" class="link-teal">Lire →</a>
+            </div>
+          </div>
+        </div>
+        <div class="compact-stack">
+          <div class="compact-item">
+            <div class="compact-thumb img-blue"></div>
+            <div>
+              <span class="tag tag-ia">IA</span>
+              <h4 class="compact-title">Recherche sémantique par IA pour des millions d'utilisateurs</h4>
+              <p class="compact-meta">Capucine Tiberghien & Quentin Ménard · TheFork · 11 min</p>
+            </div>
+          </div>
+          <div class="compact-item">
+            <div class="compact-thumb img-amber"></div>
+            <div>
+              <span class="tag tag-strategie">COMMERCE</span>
+              <h4 class="compact-title">Commerce agentique : 10 éléments à connaître sur le commerce du futur</h4>
+              <p class="compact-meta">Anne-Claire Baschet · Mirakl · 14 min</p>
+            </div>
+          </div>
+          <div class="compact-item">
+            <div class="compact-thumb img-green"></div>
+            <div>
+              <div style="display:flex; gap:5px; align-items:center;">
+                <span class="tag tag-ia">IA</span>
+                <span class="badge badge-premium" style="font-size:9px;">PREMIUM</span>
+              </div>
+              <h4 class="compact-title">Les agents IA en production : retours d'expérience de 8 CTO européens</h4>
+              <p class="compact-meta">13 min · 28 fév. 2026</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════
+         JTBD BLOCK 3 — J'évolue vers le management produit
+    ═════════════════════════════════════════════════════ -->
+    <section class="jtbd-section" style="background:#fff;">
+      <div class="jtbd-header">
+        <div>
+          <p class="eyebrow">Pourquoi lire Le Ticket</p>
+          <h2 class="jtbd-title">J'évolue vers le management produit</h2>
+        </div>
+        <a href="#" class="link-teal">Voir tout →</a>
+      </div>
+      <div class="jtbd-grid">
+        <div class="featured-card article-card">
+          <div class="img-slate img-zone">
+            <div class="img-overlay"></div>
+            <div class="img-tags">
+              <span class="tag tag-product">PRODUCT</span>
+            </div>
+            <span class="img-time">12 min de lecture</span>
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">Être Senior PM en 2026 : Retours croisés (et actionnables) chez Dust, Payfit et Pennylane</h3>
+            <p class="card-desc">Ce que les product managers en scale-up européenne font concrètement différemment des autres.</p>
+            <div class="card-footer">
+              <span style="font-size:11px; color:var(--ink-muted);">Organisation Produit · 12 min</span>
+              <a href="#" class="link-teal">Lire →</a>
+            </div>
+          </div>
+        </div>
+        <div class="compact-stack">
+          <div class="compact-item">
+            <div class="compact-thumb img-purple"></div>
+            <div>
+              <span class="tag tag-product">PRODUCT</span>
+              <h4 class="compact-title">Construire sa roadmap : dans les coulisses de Jump</h4>
+              <p class="compact-meta">Sarah Chiche · Jump · 9 min</p>
+            </div>
+          </div>
+          <div class="compact-item">
+            <div class="compact-thumb img-teal-d"></div>
+            <div>
+              <span class="tag tag-leadership">LEADERSHIP</span>
+              <h4 class="compact-title">Chief of Staff : le rôle qui manquait aux scale-ups européennes</h4>
+              <p class="compact-meta">10 min · 21 fév. 2026</p>
+            </div>
+          </div>
+          <div class="compact-item">
+            <div class="compact-thumb img-green"></div>
+            <div>
+              <span class="tag tag-product">PRODUCT</span>
+              <h4 class="compact-title">L'aventure du virage Product-led Growth de Yousign</h4>
+              <p class="compact-meta">11 min · 14 fév. 2026</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════
+         JTBD BLOCK 4 — Je veux les fondamentaux du produit
+    ═════════════════════════════════════════════════════ -->
+    <section class="jtbd-section">
+      <div class="jtbd-header">
+        <div>
+          <p class="eyebrow">Pourquoi lire Le Ticket</p>
+          <h2 class="jtbd-title">Je veux les fondamentaux du produit</h2>
+        </div>
+        <a href="#" class="link-teal">Voir tout →</a>
+      </div>
+      <div class="jtbd-grid">
+        <div class="featured-card article-card">
+          <div class="img-purple img-zone">
+            <div class="img-overlay"></div>
+            <div class="img-tags">
+              <span class="tag tag-product">PRODUCT</span>
+              <span class="badge badge-premium">PREMIUM</span>
+            </div>
+            <span class="img-time">Guide · 18 min</span>
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">Les fondamentaux de la stratégie produit dans une scale-up</h3>
+            <p class="card-desc">Stratégie, discovery, roadmap, PLG, PMF — les frameworks qui font la différence entre un PM correct et un PM exceptionnel.</p>
+            <div class="card-footer">
+              <span style="font-size:11px; color:var(--ink-muted);">Guide · Stratégie Produit</span>
+              <a href="#" class="link-teal">Lire →</a>
+            </div>
+          </div>
+        </div>
+        <div class="compact-stack">
+          <div class="compact-item">
+            <div class="compact-thumb img-amber"></div>
+            <div>
+              <div style="display:flex; gap:5px; align-items:center;">
+                <span class="tag tag-strategie">STRATÉGIE</span>
+                <span class="badge badge-premium" style="font-size:9px;">PREMIUM</span>
+              </div>
+              <h4 class="compact-title">Product-Market Fit : Le framework de First Round Capital</h4>
+              <p class="compact-meta">Todd Jackson · 13 min</p>
+            </div>
+          </div>
+          <div class="compact-item">
+            <div class="compact-thumb img-indigo"></div>
+            <div>
+              <span class="tag tag-product">PRODUCT</span>
+              <h4 class="compact-title">Le framework OKR de Figma, décrypté par son ex-VP Product</h4>
+              <p class="compact-meta">Sophie Martin · 11 min</p>
+            </div>
+          </div>
+          <div class="compact-item">
+            <div class="compact-thumb img-rose"></div>
+            <div>
+              <span class="tag tag-strategie">DANS LES COULISSES</span>
+              <h4 class="compact-title">Vendre sa boîte et refondre son produit de A à Z</h4>
+              <p class="compact-meta">Julie Chane Ching · Bloom atWork · 15 min</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════
+         GUIDE BLOCK 1 — AI Product Day 2025
+    ═════════════════════════════════════════════════════ -->
+    <section class="jtbd-section" style="background:#fff;">
+      <div class="jtbd-header">
+        <div>
+          <p class="eyebrow">Guides &amp; Collections</p>
+          <h2 class="jtbd-title">AI Product Day 2025</h2>
+        </div>
+        <a href="#" class="link-teal">Voir le guide complet →</a>
+      </div>
+      <div class="jtbd-grid">
+        <div class="featured-card article-card">
+          <div class="img-teal-d img-zone">
+            <div class="img-overlay"></div>
+            <div class="img-tags">
+              <span class="tag tag-ia">GUIDE PREMIUM</span>
+            </div>
+            <span class="img-time">Malt · BlaBlaCar · Doctolib · Dust · Mirakl</span>
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">Nos synthèses de l'AI Product Day 2025</h3>
+            <p class="card-desc">Toutes les conférences résumées et rendues actionnables — les meilleures idées de la journée, condensées en une lecture.</p>
+            <div class="card-footer">
+              <span style="font-size:11px; color:var(--ink-muted);">Guide complet · Premium</span>
+              <a href="#" class="link-teal">Lire →</a>
+            </div>
+          </div>
+        </div>
+        <div class="compact-stack">
+          <div class="compact-item">
+            <div class="compact-thumb img-green"></div>
+            <div>
+              <span class="tag tag-ia">IA</span>
+              <h4 class="compact-title">Malt : Comment on a industrialisé l'IA dans nos workflows produit</h4>
+              <p class="compact-meta">Conf AI Product Day · 10 min</p>
+            </div>
+          </div>
+          <div class="compact-item">
+            <div class="compact-thumb img-blue"></div>
+            <div>
+              <span class="tag tag-ia">IA</span>
+              <h4 class="compact-title">Doctolib : Intégrer l'IA dans un produit de santé sans compromettre la confiance</h4>
+              <p class="compact-meta">Conf AI Product Day · 12 min</p>
+            </div>
+          </div>
+          <div class="compact-item">
+            <div class="compact-thumb img-purple"></div>
+            <div>
+              <span class="tag tag-ia">IA</span>
+              <h4 class="compact-title">Dust : Construire des agents internes qui tiennent la route en production</h4>
+              <p class="compact-meta">Conf AI Product Day · 11 min</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════
+         GUIDE BLOCK 2 — La Product Conf
+    ═════════════════════════════════════════════════════ -->
+    <section class="jtbd-section">
+      <div class="jtbd-header">
+        <div>
+          <p class="eyebrow">Guides &amp; Collections</p>
+          <h2 class="jtbd-title">La Product Conf — Édition 2025</h2>
+        </div>
+        <a href="#" class="link-teal">Voir le guide complet →</a>
+      </div>
+      <div class="jtbd-grid">
+        <div class="featured-card article-card">
+          <div class="img-navy img-zone">
+            <div class="img-overlay"></div>
+            <div class="img-tags">
+              <span class="tag tag-product">GUIDE PREMIUM</span>
+            </div>
+            <span class="img-time">Édition 2025</span>
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">Nos résumés de La Product Conf — des insights prêts à appliquer</h3>
+            <p class="card-desc">Les meilleures conférences de l'édition 2025, résumées et enrichies de perspectives éditoriales.</p>
+            <div class="card-footer">
+              <span style="font-size:11px; color:var(--ink-muted);">Guide complet · Premium</span>
+              <a href="#" class="link-teal">Lire →</a>
+            </div>
+          </div>
+        </div>
+        <div class="compact-stack">
+          <div class="compact-item">
+            <div class="compact-thumb img-rose"></div>
+            <div>
+              <span class="tag tag-product">PRODUCT</span>
+              <h4 class="compact-title">Accor : Les 5 leçons de leadership tirées de la création du département "in Hotel Experience"</h4>
+              <p class="compact-meta">Carole Roth & Lucie Ozon · 11 min</p>
+            </div>
+          </div>
+          <div class="compact-item">
+            <div class="compact-thumb img-green"></div>
+            <div>
+              <span class="tag tag-product">PRODUCT</span>
+              <h4 class="compact-title">Quelle stratégie produit pour Le Monde ? L'interview de son directeur produit</h4>
+              <p class="compact-meta">Quentin Leredde · 14 min</p>
+            </div>
+          </div>
+          <div class="compact-item">
+            <div class="compact-thumb img-amber"></div>
+            <div>
+              <span class="tag tag-strategie">DANS LES COULISSES</span>
+              <h4 class="compact-title">Vendre sa boîte et refondre son produit de A à Z</h4>
+              <p class="compact-meta">Julie Chane Ching · Lucca · 15 min</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════
+         GUIDE BLOCK 3 — Stratégie Produit
+    ═════════════════════════════════════════════════════ -->
+    <section class="jtbd-section" style="background:#fff;">
+      <div class="jtbd-header">
+        <div>
+          <p class="eyebrow">Guides &amp; Collections</p>
+          <h2 class="jtbd-title">Stratégie Produit — Les fondamentaux</h2>
+        </div>
+        <a href="#" class="link-teal">Voir le guide complet →</a>
+      </div>
+      <div class="jtbd-grid">
+        <div class="featured-card article-card">
+          <div class="img-purple img-zone">
+            <div class="img-overlay"></div>
+            <div class="img-tags">
+              <span class="tag tag-product">GUIDE</span>
+            </div>
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">Les fondamentaux de la stratégie produit dans une scale-up</h3>
+            <p class="card-desc">Vision, positionnement, roadmap et priorisation — les concepts que tout product leader doit maîtriser.</p>
+            <div class="card-footer">
+              <span style="font-size:11px; color:var(--ink-muted);">Guide · 18 min</span>
+              <a href="#" class="link-teal">Lire →</a>
+            </div>
+          </div>
+        </div>
+        <div class="compact-stack">
+          <div class="compact-item">
+            <div class="compact-thumb img-indigo"></div>
+            <div>
+              <span class="tag tag-product">PRODUCT</span>
+              <h4 class="compact-title">Comment aligner product et business quand la scale-up grandit vite</h4>
+              <p class="compact-meta">10 min · Jan. 2026</p>
+            </div>
+          </div>
+          <div class="compact-item">
+            <div class="compact-thumb img-teal-d"></div>
+            <div>
+              <span class="tag tag-growth">GROWTH</span>
+              <h4 class="compact-title">Pricing produit : les modèles qui fonctionnent en SaaS B2B européen</h4>
+              <p class="compact-meta">12 min · Déc. 2025</p>
+            </div>
+          </div>
+          <div class="compact-item">
+            <div class="compact-thumb img-slate"></div>
+            <div>
+              <div style="display:flex; gap:5px; align-items:center;">
+                <span class="tag tag-strategie">STRATÉGIE</span>
+                <span class="badge badge-premium" style="font-size:9px;">PREMIUM</span>
+              </div>
+              <h4 class="compact-title">Discovery produit à grande échelle : méthodes des équipes qui livrent vite</h4>
+              <p class="compact-meta">14 min · Nov. 2025</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Fiches de lecture callout -->
+      <a href="#" class="fiches-callout">
+        <div style="font-size:2rem;">📖</div>
+        <div style="flex:1;">
+          <div style="font-weight:700; font-size:14px; color:var(--ink); margin-bottom:3px;">30+ fiches de lecture</div>
+          <div style="font-size:13px; color:var(--ink-light);">Les idées essentielles des meilleurs livres produit, stratégie et leadership — condensées et actionnables. <strong>Réservées aux membres Premium.</strong></div>
+        </div>
+        <span class="link-teal" style="white-space:nowrap;">Voir les fiches →</span>
+      </a>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════
+         JTBD BLOCK 5 — Nouveau sur Le Ticket
+    ═════════════════════════════════════════════════════ -->
+    <section class="jtbd-section">
+      <div class="jtbd-header">
+        <div>
+          <p class="eyebrow">Récemment publié</p>
+          <h2 class="jtbd-title">Nouveau sur Le Ticket</h2>
+        </div>
+        <a href="#" class="link-teal">Voir tout →</a>
+      </div>
+      <div class="jtbd-grid">
+        <div class="featured-card article-card">
+          <div class="img-slate img-zone">
+            <div class="img-overlay"></div>
+            <div class="img-tags">
+              <span class="tag tag-product">ORGANISATION PRODUIT</span>
+            </div>
+            <span class="img-time">12 min de lecture</span>
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">Être Senior PM en 2026 : Retours croisés chez Dust, Payfit et Pennylane</h3>
+            <p class="card-desc">Ce que font concrètement les meilleurs product managers dans les scale-ups européennes qui grandissent vite.</p>
+            <div class="card-footer">
+              <span style="font-size:11px; color:var(--ink-muted);">Dust · Payfit · Pennylane</span>
+              <a href="#" class="link-teal">Lire →</a>
+            </div>
+          </div>
+        </div>
+        <div class="compact-stack">
+          <div class="compact-item">
+            <div class="compact-thumb img-green"></div>
+            <div>
+              <span class="tag tag-leadership">LEADERSHIP</span>
+              <h4 class="compact-title">Accor : Les 5 leçons de leadership tirées de la création du département "in Hotel Experience"</h4>
+              <p class="compact-meta">Carole Roth & Lucie Ozon · Accor · 11 min</p>
+            </div>
+          </div>
+          <div class="compact-item">
+            <div class="compact-thumb img-amber"></div>
+            <div>
+              <div style="display:flex; gap:5px; align-items:center;">
+                <span class="tag tag-strategie">STRATÉGIE</span>
+                <span class="badge badge-premium" style="font-size:9px;">PREMIUM</span>
+              </div>
+              <h4 class="compact-title">Product-Market Fit : Le framework de First Round Capital</h4>
+              <p class="compact-meta">Todd Jackson · First Round Capital · 13 min</p>
+            </div>
+          </div>
+          <div class="compact-item">
+            <div class="compact-thumb img-teal-d"></div>
+            <div>
+              <span class="tag tag-product">DANS LES COULISSES</span>
+              <h4 class="compact-title">Quelle stratégie produit pour Le Monde ? L'interview de son directeur produit et audience</h4>
+              <p class="compact-meta">Quentin Leredde · Le Monde · 14 min</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════
+         VIDÉOS — Les Émissions du Ticket
+    ═════════════════════════════════════════════════════ -->
+    <section style="padding:3.5rem 3rem; border-bottom:1px solid var(--cream-border); background:#fff;">
+      <div class="section-header">
+        <div>
+          <p class="eyebrow">Vidéo · Premium</p>
+          <h2 class="font-serif" style="font-size:32px; color:var(--ink);">Les Émissions du Ticket</h2>
+          <p style="font-size:14px; color:var(--ink-muted); margin-top:4px;">Des coulisses inédites avec les meilleurs product builders européens.</p>
+        </div>
+        <a href="#" class="link-teal">Toutes les vidéos →</a>
+      </div>
+      <div class="video-grid">
+        <div class="video-card">
+          <div class="video-thumb img-teal-d">
+            <div class="play-overlay">
+              <div class="play-circle">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="#0F5744"><polygon points="5,3 19,12 5,21"/></svg>
+              </div>
+            </div>
+          </div>
+          <div style="padding:1rem 1.125rem;">
+            <span class="tag tag-emission" style="margin-bottom:8px; display:inline-block;">LES ÉMISSIONS</span>
+            <p style="font-size:11px; color:var(--ink-muted); margin-bottom:4px;">Aude Clerc · Staff AI PM, Skello</p>
+            <h4 class="font-serif" style="font-size:15px; color:var(--ink); line-height:1.4;">Comment Skello a bâti un assistant IA basé sur architecture MCP</h4>
+          </div>
+        </div>
+        <div class="video-card">
+          <div class="video-thumb img-navy">
+            <div class="play-overlay">
+              <div class="play-circle">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="#0C1628"><polygon points="5,3 19,12 5,21"/></svg>
+              </div>
+            </div>
+          </div>
+          <div style="padding:1rem 1.125rem;">
+            <span class="tag tag-emission" style="margin-bottom:8px; display:inline-block;">LES ÉMISSIONS</span>
+            <p style="font-size:11px; color:var(--ink-muted); margin-bottom:4px;">Capucine Tiberghien & Quentin Ménard · TheFork</p>
+            <h4 class="font-serif" style="font-size:15px; color:var(--ink); line-height:1.4;">Recherche sémantique par IA pour des millions d'utilisateurs</h4>
+          </div>
+        </div>
+        <div class="video-card">
+          <div class="video-thumb img-amber">
+            <div class="play-overlay">
+              <div class="play-circle">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="#78350F"><polygon points="5,3 19,12 5,21"/></svg>
+              </div>
+            </div>
+          </div>
+          <div style="padding:1rem 1.125rem;">
+            <span class="tag tag-emission" style="margin-bottom:8px; display:inline-block;">LES ÉMISSIONS</span>
+            <p style="font-size:11px; color:var(--ink-muted); margin-bottom:4px;">Anne-Claire Baschet · Mirakl</p>
+            <h4 class="font-serif" style="font-size:15px; color:var(--ink); line-height:1.4;">Commerce agentique : 10 éléments à connaître sur le commerce du futur</h4>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════
+         PREMIUM
+    ═════════════════════════════════════════════════════ -->
+    <section style="padding:3.5rem 3rem; border-bottom:1px solid var(--cream-border);">
+      <div style="text-align:center; margin-bottom:2.5rem;">
+        <p class="eyebrow" style="margin-bottom:.5rem;">Investissez dans votre progression</p>
+        <h2 class="font-serif" style="font-size:36px; color:var(--ink); margin-bottom:.5rem;">Le Ticket Premium</h2>
+        <p style="font-size:14px; color:var(--ink-muted);">Tout ce qu'il faut pour progresser et faire progresser son produit.</p>
+      </div>
+      <div class="pricing-grid">
+        <!-- Free -->
+        <div class="pricing-card">
+          <div style="margin-bottom:1.5rem;">
+            <h3 class="font-serif" style="font-size:22px; color:var(--ink); margin-bottom:4px;">Le Ticket</h3>
+            <p style="font-size:13px; color:var(--ink-muted);">Gratuit</p>
+          </div>
+          <div style="margin-bottom:1.75rem;">
+            <div class="check-item">
+              <div class="check-icon"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="3"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              4 newsletters / mois <span style="color:var(--ink-muted); font-size:12px; margin-left:4px;">(dont 3 abrégées)</span>
+            </div>
+            <div class="check-item">
+              <div class="check-icon"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="3"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              Accès aux articles gratuits
+            </div>
+            <div class="cross-item">
+              <div class="cross-icon"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#D1D5DB" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12" stroke-linecap="round"/></svg></div>
+              L'intégralité des articles et guides
+            </div>
+            <div class="cross-item">
+              <div class="cross-icon"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#D1D5DB" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12" stroke-linecap="round"/></svg></div>
+              Les fiches de lecture Produit (30+)
+            </div>
+            <div class="cross-item">
+              <div class="cross-icon"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#D1D5DB" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12" stroke-linecap="round"/></svg></div>
+              Les Émissions du Ticket (vidéo)
+            </div>
+          </div>
+          <a href="#" style="display:block; text-align:center; border:1.5px solid #E5E0D8; color:var(--ink); font-weight:600; font-size:14px; padding:11px; border-radius:10px;">S'inscrire gratuitement</a>
+        </div>
+        <!-- Premium -->
+        <div class="pricing-card highlighted" style="position:relative; overflow:hidden;">
+          <div style="position:absolute; top:16px; right:16px; background:var(--amber); color:#fff; font-size:11px; font-weight:700; padding:4px 10px; border-radius:9999px;">−20% annuel</div>
+          <div style="margin-bottom:1.5rem;">
+            <h3 class="font-serif" style="font-size:22px; color:#fff; margin-bottom:4px;">Le Ticket <span style="color:var(--amber);">Premium</span></h3>
+            <p style="font-size:20px; font-weight:700; color:#fff;">200 € <span style="font-size:14px; font-weight:400; color:rgba(255,255,255,.6);">/ an</span> <span style="font-size:14px; font-weight:400; color:rgba(255,255,255,.4);">ou 20 €/mois</span></p>
+            <p style="font-size:11px; color:rgba(255,255,255,.4); margin-top:2px;">Tarif réduit 85 €/an · étudiants &amp; chercheurs d'emploi</p>
+          </div>
+          <div style="margin-bottom:2rem;">
+            <div class="check-item" style="color:rgba(255,255,255,.85);">
+              <div class="check-icon check-icon-premium"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#E8A020" stroke-width="3"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              4 newsletters intégrales / mois
+            </div>
+            <div class="check-item" style="color:rgba(255,255,255,.85);">
+              <div class="check-icon check-icon-premium"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#E8A020" stroke-width="3"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              L'intégralité des articles et guides
+            </div>
+            <div class="check-item" style="color:rgba(255,255,255,.85);">
+              <div class="check-icon check-icon-premium"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#E8A020" stroke-width="3"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              Les fiches de lecture Produit <span style="color:rgba(255,255,255,.5); margin-left:3px;">(30+)</span>
+            </div>
+            <div class="check-item" style="color:rgba(255,255,255,.85);">
+              <div class="check-icon check-icon-premium"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#E8A020" stroke-width="3"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              Les Émissions du Ticket (vidéo)
+            </div>
+            <div class="check-item" style="color:rgba(255,255,255,.85);">
+              <div class="check-icon check-icon-premium"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#E8A020" stroke-width="3"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              Canal WhatsApp privé de veille
+            </div>
+            <div class="check-item" style="color:rgba(255,255,255,.85);">
+              <div class="check-icon check-icon-premium"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#E8A020" stroke-width="3"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              Réductions sur les formations à l'IA
+            </div>
+            <div class="check-item" style="color:rgba(255,255,255,.85);">
+              <div class="check-icon check-icon-premium"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#E8A020" stroke-width="3"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              Accès aux conférences à tarifs préférentiels
+            </div>
+          </div>
+          <a href="#" style="display:block; text-align:center; background:var(--amber); color:#fff; font-weight:700; font-size:14px; padding:12px; border-radius:10px; margin-bottom:10px;">Abonnement annuel — 200 €/an</a>
+          <a href="#" style="display:block; text-align:center; border:1.5px solid rgba(255,255,255,.2); color:rgba(255,255,255,.7); font-weight:600; font-size:14px; padding:11px; border-radius:10px;">Abonnement mensuel — 20 €/mois</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════
+         NEWSLETTER CTA
+    ═════════════════════════════════════════════════════ -->
+    <section style="background:var(--ink); padding:3.5rem 3rem; border-bottom:1px solid rgba(255,255,255,.08);">
+      <div style="max-width:480px; margin:0 auto; text-align:center;">
+        <p class="eyebrow" style="color:rgba(255,255,255,.4);">Newsletter gratuite</p>
+        <h2 class="font-serif" style="font-size:32px; color:#fff; margin:8px 0 12px; line-height:1.2;">Chaque semaine dans votre boîte mail</h2>
+        <p style="font-size:14px; color:rgba(255,255,255,.55); margin-bottom:1.75rem; line-height:1.6;">Les meilleures analyses product, IA et growth — sans esbroufe, avec du fond.</p>
+        <form style="display:flex; gap:.625rem;" onsubmit="return false;">
+          <input type="email" placeholder="votre@email.com" style="flex:1; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.15); color:#fff; font-size:14px; padding:11px 16px; border-radius:8px; outline:none;" />
+          <button style="background:var(--amber); color:#fff; font-weight:700; font-size:14px; padding:11px 20px; border-radius:8px; border:none; cursor:pointer; white-space:nowrap;">S'inscrire →</button>
+        </form>
+        <p style="font-size:11px; color:rgba(255,255,255,.28); margin-top:.875rem;">Gratuit · Désinscription en 1 clic · 7 000 lecteurs</p>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════
+         FOOTER
+    ═════════════════════════════════════════════════════ -->
+    <footer style="background:var(--ink); padding:2rem 3rem;">
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
+        <span class="font-serif" style="font-size:18px; color:rgba(255,255,255,.6);">Le Ticket</span>
+        <div style="display:flex; gap:1.5rem;">
+          <a href="#" style="font-size:12px; color:rgba(255,255,255,.35);">Mentions légales</a>
+          <a href="#" style="font-size:12px; color:rgba(255,255,255,.35);">Politique de confidentialité</a>
+          <a href="#" style="font-size:12px; color:rgba(255,255,255,.35);">Contact</a>
+        </div>
+        <span style="font-size:12px; color:rgba(255,255,255,.25);">© 2026 Le Ticket</span>
+      </div>
+    </footer>
+
+  </main>
+</div>
+</body>
+</html>

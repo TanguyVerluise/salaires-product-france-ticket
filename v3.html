@@ -1,0 +1,1160 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Le Ticket — Le média des équipes tech européennes</title>
+  <meta name="description" content="Analyses, interviews, podcasts, vidéos et ressources pour les product leaders et dirigeants tech européens." />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            serif: ['DM Serif Display', 'Georgia', 'serif'],
+            sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+          },
+          colors: {
+            teal: { sidebar: '#0F5744', accent: '#1A6655', light: '#EBF6F0' },
+            ink: '#0C1628',
+            premium: '#E8A020',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    :root {
+      --sidebar-w: 280px;
+      --teal-sidebar: #0F5744;
+      --teal-accent: #1A6655;
+      --teal-light: #EBF6F0;
+      --ink: #0C1628;
+      --premium: #E8A020;
+    }
+
+    * { box-sizing: border-box; }
+    body { font-family: 'Inter', -apple-system, sans-serif; background: white; color: var(--ink); margin: 0; }
+    .font-serif, h1, h2.serif { font-family: 'DM Serif Display', Georgia, serif; }
+
+    /* ── Layout ── */
+    .page-layout { display: flex; min-height: 100vh; }
+
+    /* ── Sidebar ── */
+    #sidebar {
+      width: var(--sidebar-w); min-width: var(--sidebar-w);
+      background: var(--teal-sidebar);
+      position: sticky; top: 0; height: 100vh;
+      overflow-y: auto; display: flex; flex-direction: column;
+      padding: 24px 20px; gap: 0; z-index: 100;
+    }
+    #sidebar::-webkit-scrollbar { width: 4px; }
+    #sidebar::-webkit-scrollbar-thumb { background: rgba(255,255,255,.2); border-radius: 2px; }
+
+    .sidebar-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; margin-bottom: 24px; }
+    .sidebar-logo .logo-mark {
+      width: 28px; height: 28px; background: white; border-radius: 4px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; font-weight: 800; color: var(--teal-sidebar); flex-shrink: 0;
+    }
+    .sidebar-logo span { color: white; font-size: 18px; font-weight: 700; letter-spacing: -0.3px; }
+
+    .btn-premium {
+      display: block; text-align: center; background: var(--premium);
+      color: #0C1628; font-weight: 700; font-size: 14px;
+      padding: 11px 16px; border-radius: 8px; text-decoration: none;
+      margin-bottom: 10px; transition: opacity .15s;
+    }
+    .btn-premium:hover { opacity: .9; }
+    .btn-connect {
+      display: block; text-align: center; background: rgba(255,255,255,.12);
+      color: white; font-weight: 600; font-size: 14px; padding: 10px 16px;
+      border-radius: 8px; text-decoration: none; margin-bottom: 20px;
+      border: 1px solid rgba(255,255,255,.2); transition: background .15s;
+    }
+    .btn-connect:hover { background: rgba(255,255,255,.2); }
+
+    .sidebar-search {
+      display: flex; align-items: center; gap: 8px;
+      background: rgba(255,255,255,.1); border-radius: 8px;
+      padding: 9px 12px; margin-bottom: 24px;
+    }
+    .sidebar-search svg { width: 16px; height: 16px; color: rgba(255,255,255,.6); flex-shrink: 0; }
+    .sidebar-search input { background: none; border: none; outline: none; color: white; font-size: 13px; width: 100%; }
+    .sidebar-search input::placeholder { color: rgba(255,255,255,.5); }
+
+    .nav-section { margin-bottom: 20px; }
+    .nav-label {
+      display: block; font-size: 10px; font-weight: 700;
+      color: rgba(255,255,255,.45); letter-spacing: .08em;
+      text-transform: uppercase; margin-bottom: 6px; padding: 0 4px;
+    }
+    .nav-label.locked { display: flex; align-items: center; gap: 5px; }
+    .nav-label.locked svg { width: 10px; height: 10px; }
+    .nav-link {
+      display: block; color: rgba(255,255,255,.85); font-size: 13.5px;
+      padding: 7px 8px; border-radius: 6px; text-decoration: none;
+      transition: background .15s, color .15s; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .nav-link:hover { background: rgba(255,255,255,.12); color: white; }
+    .nav-divider { border: none; border-top: 1px solid rgba(255,255,255,.1); margin: 16px 0; }
+
+    /* ── Main ── */
+    #main { flex: 1; min-width: 0; overflow-x: hidden; }
+
+    /* ── Top Bar ── */
+    .top-bar {
+      background: var(--ink); color: white;
+      text-align: center; font-size: 13px; font-weight: 500; padding: 10px 24px;
+    }
+    .top-bar a { color: var(--premium); text-decoration: underline; font-weight: 600; }
+
+    /* ── Image gradients ── */
+    .img-teal-deep  { background: linear-gradient(135deg, #0D4F41 0%, #1A6655 55%, #4EADA0 100%); }
+    .img-navy       { background: linear-gradient(135deg, #0C1628 0%, #1E3A5F 55%, #3B6CA0 100%); }
+    .img-amber      { background: linear-gradient(135deg, #78350F 0%, #D97706 55%, #FCD34D 100%); }
+    .img-indigo     { background: linear-gradient(135deg, #312E81 0%, #4F46E5 55%, #A5B4FC 100%); }
+    .img-rose       { background: linear-gradient(135deg, #881337 0%, #E11D48 55%, #FDA4AF 100%); }
+    .img-slate      { background: linear-gradient(135deg, #1E293B 0%, #475569 55%, #94A3B8 100%); }
+    .img-green      { background: linear-gradient(135deg, #064E3B 0%, #059669 55%, #6EE7B7 100%); }
+    .img-purple     { background: linear-gradient(135deg, #4C1D95 0%, #7C3AED 55%, #C4B5FD 100%); }
+    .img-orange     { background: linear-gradient(135deg, #7C2D12 0%, #EA580C 55%, #FED7AA 100%); }
+
+    /* ── Tags ── */
+    .tag { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; padding: 3px 8px; border-radius: 4px; }
+    .tag-emission  { background: #FEF3C7; color: #92400E; }
+    .tag-product   { background: #DBEAFE; color: #1E40AF; }
+    .tag-org       { background: #D1FAE5; color: #065F46; }
+    .tag-coulisses { background: #EDE9FE; color: #5B21B6; }
+    .tag-early     { background: #FCE7F3; color: #9D174D; }
+    .tag-career    { background: #F1F5F9; color: #334155; }
+    .tag-video     { background: #FEE2E2; color: #991B1B; }
+    .tag-fiche     { background: #ECFDF5; color: #065F46; }
+
+    /* ── Section headings ── */
+    .section-label { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--teal-accent); margin-bottom: 8px; display: block; }
+    .section-title { font-family: 'DM Serif Display', Georgia, serif; font-size: 30px; line-height: 1.2; color: var(--ink); margin: 0 0 8px; }
+
+    /* ── Article cards ── */
+    .article-card { background: white; border-radius: 10px; overflow: hidden; transition: box-shadow .2s; border: 1px solid #EBEBEB; }
+    .article-card:hover { box-shadow: 0 6px 20px rgba(12,22,40,.08); }
+    .article-thumb { width: 100%; aspect-ratio: 16/9; }
+
+    /* ── Podcast card ── */
+    .podcast-card { background: white; border-radius: 10px; padding: 16px; display: flex; gap: 14px; align-items: flex-start; transition: box-shadow .2s; border: 1px solid #EBEBEB; }
+    .podcast-card:hover { box-shadow: 0 4px 16px rgba(12,22,40,.07); }
+    .podcast-thumb { width: 68px; height: 68px; border-radius: 8px; flex-shrink: 0; }
+    .play-btn { width: 32px; height: 32px; border-radius: 50%; background: var(--teal-accent); display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+    .play-btn svg { width: 12px; height: 12px; color: white; margin-left: 2px; }
+
+    /* ── Video card ── */
+    .video-card { background: white; border-radius: 10px; overflow: hidden; border: 1px solid #EBEBEB; transition: box-shadow .2s; }
+    .video-card:hover { box-shadow: 0 6px 20px rgba(12,22,40,.08); }
+    .video-thumb { width: 100%; aspect-ratio: 16/9; position: relative; }
+    .play-overlay { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+    .play-circle { width: 48px; height: 48px; border-radius: 50%; background: rgba(255,255,255,.9); display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 12px rgba(0,0,0,.2); }
+
+    /* ── Person card ── */
+    .person-card { background: white; border: 1px solid #EBEBEB; border-radius: 10px; padding: 18px; transition: box-shadow .2s; }
+    .person-card:hover { box-shadow: 0 4px 14px rgba(12,22,40,.07); }
+    .avatar { width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 15px; color: white; flex-shrink: 0; }
+
+    /* ── JTBD cards ── */
+    .jtbd-card { display: block; border: 1px solid #E5E7EB; border-radius: 10px; padding: 20px; background: white; transition: border-color .2s, box-shadow .2s; text-decoration: none; }
+    .jtbd-card:hover { border-color: var(--teal-accent); box-shadow: 0 4px 16px rgba(15,87,68,.1); }
+
+    /* ── Testimonial ── */
+    .testimonial-card { background: white; border: 1px solid #E5E7EB; border-radius: 10px; padding: 20px; }
+
+    /* ── Hero ── */
+    .hero-bg { background: var(--teal-sidebar); }
+
+    /* ── Mobile ── */
+    @media (max-width: 768px) {
+      #sidebar { display: none; }
+      .section-title { font-size: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="page-layout">
+
+  <!-- ═══════════════════════════════
+       SIDEBAR
+  ═══════════════════════════════ -->
+  <aside id="sidebar">
+
+    <a href="/" class="sidebar-logo">
+      <div class="logo-mark">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none">
+          <rect x="2" y="2" width="9" height="9" rx="1" fill="currentColor"/>
+          <rect x="13" y="2" width="9" height="9" rx="1" fill="currentColor" opacity=".5"/>
+          <rect x="2" y="13" width="9" height="9" rx="1" fill="currentColor" opacity=".5"/>
+        </svg>
+      </div>
+      <span>LeTicket</span>
+    </a>
+
+    <a href="https://www.le-ticket.fr/le-ticket-premium-2024/" class="btn-premium">Devenir Premium</a>
+    <a href="https://www.le-ticket.fr/account/" class="btn-connect">Se connecter</a>
+
+    <div class="sidebar-search">
+      <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="8.5" cy="8.5" r="5.5"/><path d="M15 15l-3-3"/>
+      </svg>
+      <input type="text" placeholder="Chercher un article…" />
+    </div>
+
+    <nav>
+      <div class="nav-section">
+        <span class="nav-label">200+ RESSOURCES</span>
+        <a href="https://www.le-ticket.fr/tous-les-articles/" class="nav-link">Tous les articles</a>
+        <a href="https://www.le-ticket.fr/newsletter-product-management/" class="nav-link">La newsletter</a>
+        <a href="https://www.le-ticket.fr/podcast-ticket-product-management/" class="nav-link">Les podcasts du Ticket</a>
+        <a href="https://www.le-ticket.fr/evenement-produit-product-management/liste/" class="nav-link">Les évènements Produit</a>
+      </div>
+
+      <hr class="nav-divider" />
+
+      <div class="nav-section">
+        <span class="nav-label locked">
+          <svg viewBox="0 0 12 12" fill="currentColor"><path d="M9 5V4a3 3 0 0 0-6 0v1H2v7h8V5H9zM5 4a1 1 0 0 1 2 0v1H5V4z"/></svg>
+          LES AVANTAGES PREMIUM
+        </span>
+        <a href="https://www.le-ticket.fr/les-emissions-ticket-product-management-ia/" class="nav-link">Les Émissions du Ticket</a>
+        <a href="https://www.le-ticket.fr/collections/" class="nav-link">Les Guides</a>
+        <a href="https://www.le-ticket.fr/tag/fiche-lecture-product-management/" class="nav-link">Les fiches de lecture</a>
+      </div>
+
+      <hr class="nav-divider" />
+
+      <div class="nav-section">
+        <span class="nav-label">BOUTIQUE</span>
+        <a href="https://www.le-ticket.fr/meilleures-formations-product-management/" class="nav-link">Les Formations du Ticket</a>
+        <a href="https://www.le-ticket.fr/roadbook-product-led-growth/" class="nav-link">Le Roadbook</a>
+      </div>
+    </nav>
+
+  </aside>
+
+  <!-- ═══════════════════════════════
+       MAIN CONTENT
+  ═══════════════════════════════ -->
+  <div id="main">
+
+    <!-- TOP BAR -->
+    <div class="top-bar">
+      Nouveau : <strong>Les Émissions du Ticket</strong> — des vidéos en coulisses avec les meilleurs product builders européens.
+      <a href="https://www.le-ticket.fr/les-emissions-ticket-product-management-ia/">Découvrir →</a>
+    </div>
+
+    <!-- ── HERO ── -->
+    <section class="hero-bg px-10 py-14 lg:py-18">
+      <div class="max-w-5xl mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-5 gap-10 items-center">
+
+          <!-- Left: tagline -->
+          <div class="lg:col-span-3">
+            <h1 class="font-serif text-3xl lg:text-4xl text-white leading-tight mb-5">
+              Des ressources pour les équipes qui font la tech européenne.
+            </h1>
+            <p class="text-white/65 text-base leading-relaxed mb-7">
+              Analyses, interviews, podcasts et vidéos pour les product leaders, CPO et dirigeants tech — sans esbroufe, avec du fond.
+            </p>
+            <div class="flex flex-wrap gap-3">
+              <a href="https://www.le-ticket.fr/le-ticket-premium-2024/" class="inline-flex items-center gap-2 bg-amber-400 hover:bg-amber-300 text-gray-900 font-bold px-5 py-2.5 rounded-lg transition-colors text-sm">
+                Devenir Premium — 200 €/an
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+              <a href="https://www.le-ticket.fr/newsletter-product-management/" class="inline-flex items-center gap-2 text-white/75 hover:text-white font-semibold text-sm border border-white/25 hover:border-white/50 px-5 py-2.5 rounded-lg transition-colors">
+                S'inscrire gratuitement
+              </a>
+            </div>
+          </div>
+
+          <!-- Right: featured article -->
+          <div class="lg:col-span-2">
+            <a href="https://www.le-ticket.fr/comment-skello-a-bati-en-9-mois-un-assistant-ia-pour-les-rh-base-sur-une-architecture-mcp/149409/" class="block rounded-xl overflow-hidden group">
+              <div class="img-teal-deep relative flex items-end p-5" style="min-height: 200px;">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/65 to-transparent"></div>
+                <div class="relative">
+                  <span class="tag tag-video mb-2 inline-block">Les Émissions du Ticket</span>
+                  <div class="text-white/60 text-xs mb-1">Aude Clerc · Staff AI PM, Skello</div>
+                  <h3 class="text-white font-semibold text-sm leading-snug group-hover:text-amber-300 transition-colors">
+                    Comment Skello a bâti un assistant IA pour les RH basé sur une architecture MCP
+                  </h3>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── SOCIAL PROOF ── -->
+    <section class="bg-white border-b border-gray-100 py-6 px-10">
+      <div class="max-w-5xl mx-auto">
+        <p class="text-gray-400 text-xs font-semibold uppercase tracking-widest text-center mb-4">Lu par des équipes de</p>
+        <div class="flex flex-wrap gap-2 justify-center">
+          <span class="inline-block border border-gray-200 rounded-md px-3 py-1.5 text-sm font-medium text-gray-600">Doctolib</span>
+          <span class="inline-block border border-gray-200 rounded-md px-3 py-1.5 text-sm font-medium text-gray-600">TheFork</span>
+          <span class="inline-block border border-gray-200 rounded-md px-3 py-1.5 text-sm font-medium text-gray-600">Mirakl</span>
+          <span class="inline-block border border-gray-200 rounded-md px-3 py-1.5 text-sm font-medium text-gray-600">Yousign</span>
+          <span class="inline-block border border-gray-200 rounded-md px-3 py-1.5 text-sm font-medium text-gray-600">Scaleway</span>
+          <span class="inline-block border border-gray-200 rounded-md px-3 py-1.5 text-sm font-medium text-gray-600">France Télévisions</span>
+          <span class="inline-block border border-gray-200 rounded-md px-3 py-1.5 text-sm font-medium text-gray-600">Pennylane</span>
+          <span class="inline-block border border-gray-200 rounded-md px-3 py-1.5 text-sm font-medium text-gray-600">Dust</span>
+          <span class="inline-block border border-gray-200 rounded-md px-3 py-1.5 text-sm font-medium text-gray-600">Fleet</span>
+          <span class="inline-block border border-gray-200 rounded-md px-3 py-1.5 text-sm font-medium text-gray-600">BlaBlaCar</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── JOBS TO BE DONE ── -->
+    <section class="px-10 py-12" style="background: #F8F9FA;">
+      <div class="max-w-5xl mx-auto">
+        <div class="mb-8">
+          <span class="section-label">Pourquoi lire Le Ticket</span>
+          <h2 class="section-title">Ce qui vous amène ici</h2>
+          <p class="text-gray-500 text-sm mt-1">Des ressources organisées selon vos besoins, pas selon nos catégories.</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+
+          <a href="https://www.le-ticket.fr/tous-les-articles/?s=IA" class="jtbd-card">
+            <div class="text-2xl mb-3">🤖</div>
+            <h3 class="font-semibold text-sm text-gray-900 mb-2">Je veux me former à l'IA</h3>
+            <p class="text-gray-500 text-xs leading-relaxed mb-3">Comment l'IA transforme les produits, les organisations et les métiers tech. MCP, agents, LLM — du concret, par des praticiens.</p>
+            <span class="text-xs font-semibold text-teal-700 flex items-center gap-1">
+              Voir les ressources
+              <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+          </a>
+
+          <a href="https://www.le-ticket.fr/podcast-ticket-product-management/" class="jtbd-card">
+            <div class="text-2xl mb-3">📈</div>
+            <h3 class="font-semibold text-sm text-gray-900 mb-2">J'évolue vers le management produit</h3>
+            <p class="text-gray-500 text-xs leading-relaxed mb-3">Prendre son premier poste de lead, construire une équipe produit, gérer la relation avec le business — ce que font concrètement d'autres product managers.</p>
+            <span class="text-xs font-semibold text-teal-700 flex items-center gap-1">
+              Voir les ressources
+              <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+          </a>
+
+          <a href="https://www.le-ticket.fr/collections/strategie-produit/" class="jtbd-card">
+            <div class="text-2xl mb-3">📚</div>
+            <h3 class="font-semibold text-sm text-gray-900 mb-2">Je veux les fondamentaux du produit</h3>
+            <p class="text-gray-500 text-xs leading-relaxed mb-3">Stratégie produit, discovery, roadmap, PLG, PMF — les frameworks qui font la différence entre un PM correct et un PM exceptionnel.</p>
+            <span class="text-xs font-semibold text-teal-700 flex items-center gap-1">
+              Voir les ressources
+              <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+          </a>
+
+          <a href="https://www.le-ticket.fr/tag/produit-early-stage/" class="jtbd-card">
+            <div class="text-2xl mb-3">🚀</div>
+            <h3 class="font-semibold text-sm text-gray-900 mb-2">Je construis un produit de zéro</h3>
+            <p class="text-gray-500 text-xs leading-relaxed mb-3">Early stage, financement, Product-Market Fit, premières embauches produit — les retours de fondateurs et CPO qui l'ont fait.</p>
+            <span class="text-xs font-semibold text-teal-700 flex items-center gap-1">
+              Voir les ressources
+              <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+          </a>
+
+          <a href="https://www.le-ticket.fr/tous-les-articles/?s=SaaS" class="jtbd-card">
+            <div class="text-2xl mb-3">💻</div>
+            <h3 class="font-semibold text-sm text-gray-900 mb-2">Je travaille en SaaS B2B</h3>
+            <p class="text-gray-500 text-xs leading-relaxed mb-3">PLG, onboarding, pricing, expansion — comment les scale-ups SaaS européennes construisent des produits qui convertissent et fidélisent.</p>
+            <span class="text-xs font-semibold text-teal-700 flex items-center gap-1">
+              Voir les ressources
+              <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+          </a>
+
+          <a href="https://www.le-ticket.fr/tag/fiche-lecture-product-management/" class="jtbd-card" style="border-color: var(--teal-light); background: #F0FAF5;">
+            <div class="text-2xl mb-3">📖</div>
+            <h3 class="font-semibold text-sm text-gray-900 mb-2">Je veux les fiches de lecture</h3>
+            <p class="text-gray-500 text-xs leading-relaxed mb-3">Plus de 30 fiches de lecture des meilleurs livres produit, stratégie et leadership — les idées essentielles, condensées et actionnables.</p>
+            <span class="text-xs font-semibold text-teal-700 flex items-center gap-1">
+              Voir les fiches <span class="bg-teal-100 text-teal-700 text-xs font-bold px-1.5 py-0.5 rounded ml-1">Premium</span>
+              <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ── À LA UNE ── -->
+    <section class="px-10 py-12 bg-white">
+      <div class="max-w-5xl mx-auto">
+        <div class="flex items-end justify-between mb-7">
+          <div>
+            <span class="section-label">À la une</span>
+            <h2 class="section-title">Ce qu'il faut avoir lu</h2>
+          </div>
+          <a href="https://www.le-ticket.fr/tous-les-articles/" class="text-sm font-semibold text-teal-700 hover:text-teal-900 transition-colors flex items-center gap-1">
+            Tous les articles
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
+
+          <!-- Featured -->
+          <a href="https://www.le-ticket.fr/comment-thefork-a-deploye-la-recherche-semantique-par-ia-pour-des-millions-dutilisateurs/149110/" class="article-card lg:col-span-2 group cursor-pointer no-underline">
+            <div class="img-navy article-thumb relative" style="min-height: 240px;">
+              <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+              <div class="absolute bottom-0 left-0 p-5">
+                <span class="tag tag-emission mb-2 inline-block">Les Émissions du Ticket</span>
+                <div class="text-white/60 text-xs mb-1">Capucine Tiberghien & Quentin Ménard · TheFork</div>
+              </div>
+            </div>
+            <div class="p-5">
+              <h3 class="font-serif text-lg leading-snug text-gray-900 group-hover:text-teal-700 transition-colors mb-2">
+                Comment TheFork a déployé la recherche sémantique par IA pour des millions d'utilisateurs
+              </h3>
+              <p class="text-gray-500 text-sm leading-relaxed">
+                Les PM racontent les coulisses de la fonctionnalité de recherche sémantique — de l'idée à la mise en production.
+              </p>
+            </div>
+          </a>
+
+          <!-- Side articles -->
+          <div class="flex flex-col gap-5">
+            <a href="https://www.le-ticket.fr/commerce-agentique-10-elements-a-connaitre-sur-le-commerce-du-futur/149081/" class="article-card group cursor-pointer no-underline flex flex-col">
+              <div class="img-amber article-thumb" style="height: 130px;"></div>
+              <div class="p-4 flex-1">
+                <div class="text-gray-400 text-xs mb-1">Anne-Claire Baschet · Mirakl</div>
+                <h3 class="font-semibold text-sm leading-snug text-gray-900 group-hover:text-teal-700 transition-colors">
+                  Commerce agentique : 10 éléments à connaître sur le commerce du futur
+                </h3>
+              </div>
+            </a>
+            <a href="https://www.le-ticket.fr/product-market-fit-le-framework-incontournable-de-first-round-capital-pour-reussir-a-percer-sur-un-marche/148948/" class="article-card group cursor-pointer no-underline flex flex-col">
+              <div class="img-indigo article-thumb" style="height: 130px;"></div>
+              <div class="p-4 flex-1">
+                <div class="text-gray-400 text-xs mb-1">Todd Jackson · Partner, First Round</div>
+                <h3 class="font-semibold text-sm leading-snug text-gray-900 group-hover:text-teal-700 transition-colors">
+                  Product-Market Fit : Le framework de First Round Capital pour réussir à percer
+                </h3>
+              </div>
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ── LES DIRIGEANTS ── -->
+    <section class="px-10 py-12" style="background: #F8F9FA;">
+      <div class="max-w-5xl mx-auto">
+        <div class="flex items-end justify-between mb-7">
+          <div>
+            <span class="section-label">Interviews</span>
+            <h2 class="section-title">Les dirigeants qui font la tech européenne</h2>
+            <p class="text-gray-500 text-sm mt-1">Des entretiens avec les product leaders qui partagent leurs méthodes.</p>
+          </div>
+          <a href="https://www.le-ticket.fr/tous-les-articles/" class="text-sm font-semibold text-teal-700 hover:text-teal-900 transition-colors flex items-center gap-1 whitespace-nowrap">
+            Tous les articles
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+
+          <a href="https://www.le-ticket.fr/comment-le-monde-reinvente-sa-strategie-produit-pour-faire-face-aux-geants-de-lia-generative/148854/" class="person-card group cursor-pointer no-underline block">
+            <div class="flex items-start gap-3 mb-3">
+              <div class="avatar img-teal-deep">QL</div>
+              <div>
+                <div class="font-semibold text-sm text-gray-900">Quentin Leredde</div>
+                <div class="text-gray-500 text-xs">Directeur Produit & Audience</div>
+                <div class="text-teal-700 text-xs font-medium">Le Monde</div>
+              </div>
+            </div>
+            <p class="text-gray-500 text-xs leading-relaxed group-hover:text-gray-700 transition-colors">
+              Comment Le Monde réinvente sa stratégie produit face aux géants de l'IA générative.
+            </p>
+          </a>
+
+          <a href="https://www.le-ticket.fr/commerce-agentique-10-elements-a-connaitre-sur-le-commerce-du-futur/149081/" class="person-card group cursor-pointer no-underline block">
+            <div class="flex items-start gap-3 mb-3">
+              <div class="avatar img-amber">AB</div>
+              <div>
+                <div class="font-semibold text-sm text-gray-900">Anne-Claire Baschet</div>
+                <div class="text-gray-500 text-xs">Chief Data & IA Officer</div>
+                <div class="text-teal-700 text-xs font-medium">Mirakl</div>
+              </div>
+            </div>
+            <p class="text-gray-500 text-xs leading-relaxed group-hover:text-gray-700 transition-colors">
+              10 éléments à connaître sur la révolution du commerce agentique avec l'IA.
+            </p>
+          </a>
+
+          <a href="https://www.le-ticket.fr/pourquoi-fleet-valorise-100-me-mene-une-operation-de-lbo/148993/" class="person-card group cursor-pointer no-underline block">
+            <div class="flex items-start gap-3 mb-3">
+              <div class="avatar img-indigo">SM</div>
+              <div>
+                <div class="font-semibold text-sm text-gray-900">Sevan Marian</div>
+                <div class="text-gray-500 text-xs">CEO & Cofondateur</div>
+                <div class="text-teal-700 text-xs font-medium">Fleet</div>
+              </div>
+            </div>
+            <p class="text-gray-500 text-xs leading-relaxed group-hover:text-gray-700 transition-colors">
+              Pourquoi Fleet, valorisé 100 M€, choisit l'opération de LBO pour accélérer.
+            </p>
+          </a>
+
+          <a href="https://www.le-ticket.fr/comment-skello-a-bati-en-9-mois-un-assistant-ia-pour-les-rh-base-sur-une-architecture-mcp/149409/" class="person-card group cursor-pointer no-underline block">
+            <div class="flex items-start gap-3 mb-3">
+              <div class="avatar img-rose">AC</div>
+              <div>
+                <div class="font-semibold text-sm text-gray-900">Aude Clerc</div>
+                <div class="text-gray-500 text-xs">Staff AI Product Manager</div>
+                <div class="text-teal-700 text-xs font-medium">Skello</div>
+              </div>
+            </div>
+            <p class="text-gray-500 text-xs leading-relaxed group-hover:text-gray-700 transition-colors">
+              Comment Skello a bâti en 9 mois un assistant IA pour les RH sur architecture MCP.
+            </p>
+          </a>
+
+          <a href="https://www.le-ticket.fr/accor-les-5-lecons-de-leadership-tirees-de-la-creation-du-nouveau-departement-in-hotel-experience/148760/" class="person-card group cursor-pointer no-underline block">
+            <div class="flex items-start gap-3 mb-3">
+              <div class="avatar img-green">CR</div>
+              <div>
+                <div class="font-semibold text-sm text-gray-900">Carole Roth</div>
+                <div class="text-gray-500 text-xs">Dir. In Hotel Experience</div>
+                <div class="text-teal-700 text-xs font-medium">Accor</div>
+              </div>
+            </div>
+            <p class="text-gray-500 text-xs leading-relaxed group-hover:text-gray-700 transition-colors">
+              5 leçons de leadership tirées de la création d'un nouveau département chez Accor.
+            </p>
+          </a>
+
+          <a href="https://www.le-ticket.fr/comment-thefork-a-deploye-la-recherche-semantique-par-ia-pour-des-millions-dutilisateurs/149110/" class="person-card group cursor-pointer no-underline block">
+            <div class="flex items-start gap-3 mb-3">
+              <div class="avatar img-purple">QM</div>
+              <div>
+                <div class="font-semibold text-sm text-gray-900">Quentin Ménard</div>
+                <div class="text-gray-500 text-xs">Group Product Manager</div>
+                <div class="text-teal-700 text-xs font-medium">TheFork</div>
+              </div>
+            </div>
+            <p class="text-gray-500 text-xs leading-relaxed group-hover:text-gray-700 transition-colors">
+              Déployer la recherche sémantique par IA pour des millions d'utilisateurs en production.
+            </p>
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ── PODCASTS ── -->
+    <section class="px-10 py-12 bg-white">
+      <div class="max-w-5xl mx-auto">
+        <div class="flex items-end justify-between mb-7">
+          <div>
+            <span class="section-label">Audio</span>
+            <h2 class="section-title">Les Podcasts du Ticket</h2>
+            <p class="text-gray-500 text-sm mt-1">Épique & The Product Tape — animés par Estelle Auboin</p>
+          </div>
+          <a href="https://www.le-ticket.fr/podcast-ticket-product-management/" class="text-sm font-semibold text-teal-700 hover:text-teal-900 transition-colors flex items-center gap-1 whitespace-nowrap">
+            Tous les épisodes
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+
+        <div class="flex flex-col gap-3">
+
+          <a href="https://www.le-ticket.fr/podcast-ticket-product-management/" class="podcast-card no-underline">
+            <div class="podcast-thumb img-navy flex items-center justify-center">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="white" opacity=".7"><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2zm-1 14.5v-9l6 4.5-6 4.5z"/></svg>
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center gap-2 mb-1 flex-wrap">
+                <span class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Épique #14</span>
+                <span class="text-gray-400 text-xs">·</span>
+                <span class="text-gray-400 text-xs">Guillaume Denolle · Sr. PM, Doctolib</span>
+              </div>
+              <h4 class="font-semibold text-sm text-gray-900 leading-snug mb-1">Dans les coulisses de la création de Doctolib Messagerie</h4>
+              <p class="text-gray-400 text-xs leading-relaxed">Une aventure de plus d'un an et demi commencée en Italie — comment Doctolib a repensé sa messagerie de A à Z.</p>
+            </div>
+            <div class="play-btn flex-shrink-0">
+              <svg viewBox="0 0 16 16" fill="currentColor"><path d="M6 4l6 4-6 4V4z"/></svg>
+            </div>
+          </a>
+
+          <a href="https://www.le-ticket.fr/podcast-ticket-product-management/" class="podcast-card no-underline">
+            <div class="podcast-thumb img-green flex items-center justify-center">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="white" opacity=".7"><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2zm-1 14.5v-9l6 4.5-6 4.5z"/></svg>
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center gap-2 mb-1 flex-wrap">
+                <span class="text-xs font-semibold text-gray-400 uppercase tracking-wider">The Product Tape #32</span>
+              </div>
+              <h4 class="font-semibold text-sm text-gray-900 leading-snug mb-1">Devenir Product Lead : 12 clés pour réussir sa prise de poste</h4>
+              <p class="text-gray-400 text-xs leading-relaxed">Les 12 étapes clés de la prise de poste en tant que Product Lead — ce que personne ne vous dit avant.</p>
+            </div>
+            <div class="play-btn flex-shrink-0">
+              <svg viewBox="0 0 16 16" fill="currentColor"><path d="M6 4l6 4-6 4V4z"/></svg>
+            </div>
+          </a>
+
+          <a href="https://www.le-ticket.fr/podcast-ticket-product-management/" class="podcast-card no-underline">
+            <div class="podcast-thumb img-rose flex items-center justify-center">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="white" opacity=".7"><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2zm-1 14.5v-9l6 4.5-6 4.5z"/></svg>
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center gap-2 mb-1 flex-wrap">
+                <span class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Épique #13</span>
+                <span class="text-gray-400 text-xs">·</span>
+                <span class="text-gray-400 text-xs">Julie Chane Ching · Head of Product, Lucca</span>
+              </div>
+              <h4 class="font-semibold text-sm text-gray-900 leading-snug mb-1">Vendre sa boîte et refondre son produit de A à Z</h4>
+              <p class="text-gray-400 text-xs leading-relaxed">Après la vente à Lucca de sa startup Bloom atWork, Julie Chane Ching mène la refonte intégrale du produit.</p>
+            </div>
+            <div class="play-btn flex-shrink-0">
+              <svg viewBox="0 0 16 16" fill="currentColor"><path d="M6 4l6 4-6 4V4z"/></svg>
+            </div>
+          </a>
+
+          <a href="https://www.le-ticket.fr/podcast-ticket-product-management/" class="podcast-card no-underline">
+            <div class="podcast-thumb img-purple flex items-center justify-center">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="white" opacity=".7"><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2zm-1 14.5v-9l6 4.5-6 4.5z"/></svg>
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center gap-2 mb-1 flex-wrap">
+                <span class="text-xs font-semibold text-gray-400 uppercase tracking-wider">The Product Tape #31</span>
+                <span class="text-gray-400 text-xs">·</span>
+                <span class="text-gray-400 text-xs">Sarah Chiche · Jump</span>
+              </div>
+              <h4 class="font-semibold text-sm text-gray-900 leading-snug mb-1">Construire sa roadmap : dans les coulisses de Jump</h4>
+              <p class="text-gray-400 text-xs leading-relaxed">Sarah Chiche détaille le process de construction de roadmap — entre contraintes business et ambitions produit.</p>
+            </div>
+            <div class="play-btn flex-shrink-0">
+              <svg viewBox="0 0 16 16" fill="currentColor"><path d="M6 4l6 4-6 4V4z"/></svg>
+            </div>
+          </a>
+
+          <a href="https://www.le-ticket.fr/podcast-ticket-product-management/" class="podcast-card no-underline">
+            <div class="podcast-thumb img-indigo flex items-center justify-center">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="white" opacity=".7"><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2zm-1 14.5v-9l6 4.5-6 4.5z"/></svg>
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center gap-2 mb-1 flex-wrap">
+                <span class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Épique #12</span>
+                <span class="text-gray-400 text-xs">·</span>
+                <span class="text-gray-400 text-xs">Yousign</span>
+              </div>
+              <h4 class="font-semibold text-sm text-gray-900 leading-snug mb-1">L'aventure du virage Product-led Growth de Yousign</h4>
+              <p class="text-gray-400 text-xs leading-relaxed">Comment Yousign a pivoté vers une stratégie PLG — les défis, les décisions et les résultats.</p>
+            </div>
+            <div class="play-btn flex-shrink-0">
+              <svg viewBox="0 0 16 16" fill="currentColor"><path d="M6 4l6 4-6 4V4z"/></svg>
+            </div>
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ── VIDÉOS ── -->
+    <section class="px-10 py-12" style="background: #F8F9FA;">
+      <div class="max-w-5xl mx-auto">
+        <div class="flex items-end justify-between mb-7">
+          <div>
+            <span class="section-label">Vidéo · Premium</span>
+            <h2 class="section-title">Les Émissions du Ticket</h2>
+            <p class="text-gray-500 text-sm mt-1">Des coulisses inédites avec les meilleurs product builders européens.</p>
+          </div>
+          <a href="https://www.le-ticket.fr/les-emissions-ticket-product-management-ia/" class="text-sm font-semibold text-teal-700 hover:text-teal-900 transition-colors flex items-center gap-1 whitespace-nowrap">
+            Toutes les vidéos
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+
+          <a href="https://www.le-ticket.fr/comment-skello-a-bati-en-9-mois-un-assistant-ia-pour-les-rh-base-sur-une-architecture-mcp/149409/" class="video-card group no-underline">
+            <div class="video-thumb img-teal-deep">
+              <div class="play-overlay">
+                <div class="play-circle">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M8 5l11 7-11 7V5z" fill="#0F5744"/></svg>
+                </div>
+              </div>
+            </div>
+            <div class="p-4">
+              <span class="tag tag-video mb-2 inline-block">Les Émissions</span>
+              <div class="text-gray-400 text-xs mb-1">Aude Clerc · Skello</div>
+              <h4 class="font-semibold text-sm text-gray-900 group-hover:text-teal-700 transition-colors leading-snug">
+                Comment Skello a bâti un assistant IA basé sur architecture MCP
+              </h4>
+            </div>
+          </a>
+
+          <a href="https://www.le-ticket.fr/comment-thefork-a-deploye-la-recherche-semantique-par-ia-pour-des-millions-dutilisateurs/149110/" class="video-card group no-underline">
+            <div class="video-thumb img-navy">
+              <div class="play-overlay">
+                <div class="play-circle">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M8 5l11 7-11 7V5z" fill="#0F5744"/></svg>
+                </div>
+              </div>
+            </div>
+            <div class="p-4">
+              <span class="tag tag-video mb-2 inline-block">Les Émissions</span>
+              <div class="text-gray-400 text-xs mb-1">Capucine Tiberghien & Quentin Ménard · TheFork</div>
+              <h4 class="font-semibold text-sm text-gray-900 group-hover:text-teal-700 transition-colors leading-snug">
+                Recherche sémantique par IA pour des millions d'utilisateurs
+              </h4>
+            </div>
+          </a>
+
+          <a href="https://www.le-ticket.fr/commerce-agentique-10-elements-a-connaitre-sur-le-commerce-du-futur/149081/" class="video-card group no-underline">
+            <div class="video-thumb img-amber">
+              <div class="play-overlay">
+                <div class="play-circle">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M8 5l11 7-11 7V5z" fill="#0F5744"/></svg>
+                </div>
+              </div>
+            </div>
+            <div class="p-4">
+              <span class="tag tag-video mb-2 inline-block">Les Émissions</span>
+              <div class="text-gray-400 text-xs mb-1">Anne-Claire Baschet · Mirakl</div>
+              <h4 class="font-semibold text-sm text-gray-900 group-hover:text-teal-700 transition-colors leading-snug">
+                Commerce agentique : 10 éléments à connaître sur le commerce du futur
+              </h4>
+            </div>
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ── GUIDES & FICHES ── -->
+    <section class="px-10 py-12 bg-white">
+      <div class="max-w-5xl mx-auto">
+        <div class="flex items-end justify-between mb-7">
+          <div>
+            <span class="section-label">Guides & Collections</span>
+            <h2 class="section-title">Commencez ici</h2>
+            <p class="text-gray-500 text-sm mt-1">Des synthèses actionnables de conférences et de fondamentaux produit.</p>
+          </div>
+          <a href="https://www.le-ticket.fr/collections/" class="text-sm font-semibold text-teal-700 hover:text-teal-900 transition-colors flex items-center gap-1 whitespace-nowrap">
+            Tous les guides
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-6">
+
+          <a href="https://www.le-ticket.fr/collections/ai-product-day-2025/" class="article-card group cursor-pointer no-underline">
+            <div class="img-teal-deep" style="height: 150px; position: relative;">
+              <div class="absolute inset-0 flex items-center justify-center">
+                <div class="text-center">
+                  <div class="text-white/40 text-xs font-bold uppercase tracking-widest mb-1">Guide Premium</div>
+                  <div class="text-white font-bold text-base">AI Product Day</div>
+                  <div class="text-white/60 text-sm">2025</div>
+                </div>
+              </div>
+            </div>
+            <div class="p-4">
+              <div class="text-xs text-gray-400 mb-1.5">Malt · BlaBlaCar · Doctolib · Dust · Mirakl</div>
+              <h3 class="font-semibold text-sm text-gray-900 group-hover:text-teal-700 transition-colors leading-snug">
+                Nos synthèses de l'AI Product Day 2025
+              </h3>
+            </div>
+          </a>
+
+          <a href="https://www.le-ticket.fr/collections/la-product-conf/" class="article-card group cursor-pointer no-underline">
+            <div class="img-navy" style="height: 150px; position: relative;">
+              <div class="absolute inset-0 flex items-center justify-center">
+                <div class="text-center">
+                  <div class="text-white/40 text-xs font-bold uppercase tracking-widest mb-1">Guide Premium</div>
+                  <div class="text-white font-bold text-base">La Product Conf</div>
+                  <div class="text-white/60 text-sm">Édition 2025</div>
+                </div>
+              </div>
+            </div>
+            <div class="p-4">
+              <h3 class="font-semibold text-sm text-gray-900 group-hover:text-teal-700 transition-colors leading-snug">
+                Nos résumés de La Product Conf — des insights prêts à appliquer
+              </h3>
+            </div>
+          </a>
+
+          <a href="https://www.le-ticket.fr/collections/strategie-produit/" class="article-card group cursor-pointer no-underline">
+            <div class="img-purple" style="height: 150px; position: relative;">
+              <div class="absolute inset-0 flex items-center justify-center">
+                <div class="text-center">
+                  <div class="text-white/40 text-xs font-bold uppercase tracking-widest mb-1">Guide</div>
+                  <div class="text-white font-bold text-base">Stratégie Produit</div>
+                  <div class="text-white/60 text-sm">Les fondamentaux</div>
+                </div>
+              </div>
+            </div>
+            <div class="p-4">
+              <h3 class="font-semibold text-sm text-gray-900 group-hover:text-teal-700 transition-colors leading-snug">
+                Les fondamentaux de la stratégie produit dans une scale-up
+              </h3>
+            </div>
+          </a>
+
+        </div>
+
+        <!-- Fiches de lecture callout -->
+        <a href="https://www.le-ticket.fr/tag/fiche-lecture-product-management/" class="flex items-center justify-between gap-6 bg-teal-50 border border-teal-100 rounded-xl px-6 py-5 group no-underline hover:bg-teal-100 transition-colors">
+          <div class="flex items-center gap-4">
+            <div class="text-3xl">📖</div>
+            <div>
+              <div class="font-semibold text-sm text-gray-900 mb-1">30+ fiches de lecture</div>
+              <p class="text-gray-500 text-xs leading-relaxed">Les idées essentielles des meilleurs livres produit, stratégie et leadership — condensées et actionnables. <span class="text-teal-700 font-semibold">Réservées aux membres Premium.</span></p>
+            </div>
+          </div>
+          <div class="flex items-center gap-2 text-teal-700 font-semibold text-sm whitespace-nowrap flex-shrink-0">
+            Voir les fiches
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- ── NOUVEAU SUR LE TICKET ── -->
+    <section class="px-10 py-12" style="background: #F8F9FA;">
+      <div class="max-w-5xl mx-auto">
+        <div class="flex items-end justify-between mb-7">
+          <div>
+            <span class="section-label">Récemment publié</span>
+            <h2 class="section-title">Nouveau sur Le Ticket</h2>
+          </div>
+          <a href="https://www.le-ticket.fr/tous-les-articles/" class="text-sm font-semibold text-teal-700 hover:text-teal-900 transition-colors flex items-center gap-1">
+            Voir tout
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+
+        <div class="flex flex-col gap-3">
+
+          <a href="https://www.le-ticket.fr/etre-senior-product-manager-en-2026-retours-croises-et-actionnables-chez-dust-payfit-et-pennylane/149021/" class="bg-white rounded-xl p-5 flex gap-5 group cursor-pointer no-underline hover:shadow-sm transition-shadow border border-transparent hover:border-gray-100">
+            <div class="img-slate rounded-lg flex-shrink-0" style="width: 80px; height: 64px;"></div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center gap-2 mb-1 flex-wrap">
+                <span class="tag tag-org">Organisation Produit</span>
+                <span class="text-gray-400 text-xs">Dust · Payfit · Pennylane</span>
+              </div>
+              <h4 class="font-semibold text-sm text-gray-900 group-hover:text-teal-700 transition-colors leading-snug">
+                Être Senior PM en 2026 : Retours croisés (et actionnables) chez Dust, Payfit et Pennylane
+              </h4>
+            </div>
+          </a>
+
+          <a href="https://www.le-ticket.fr/accor-les-5-lecons-de-leadership-tirees-de-la-creation-du-nouveau-departement-in-hotel-experience/148760/" class="bg-white rounded-xl p-5 flex gap-5 group cursor-pointer no-underline hover:shadow-sm transition-shadow border border-transparent hover:border-gray-100">
+            <div class="img-green rounded-lg flex-shrink-0" style="width: 80px; height: 64px;"></div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center gap-2 mb-1 flex-wrap">
+                <span class="tag tag-org">Organisation Produit</span>
+                <span class="text-gray-400 text-xs">Carole Roth & Lucie Ozon · Accor</span>
+              </div>
+              <h4 class="font-semibold text-sm text-gray-900 group-hover:text-teal-700 transition-colors leading-snug">
+                Accor : Les 5 leçons de leadership tirées de la création du département "in Hotel Experience"
+              </h4>
+            </div>
+          </a>
+
+          <a href="https://www.le-ticket.fr/product-market-fit-le-framework-incontournable-de-first-round-capital-pour-reussir-a-percer-sur-un-marche/148948/" class="bg-white rounded-xl p-5 flex gap-5 group cursor-pointer no-underline hover:shadow-sm transition-shadow border border-transparent hover:border-gray-100">
+            <div class="img-amber rounded-lg flex-shrink-0" style="width: 80px; height: 64px;"></div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center gap-2 mb-1 flex-wrap">
+                <span class="tag tag-product">Product Management</span>
+                <span class="text-gray-400 text-xs">Todd Jackson · First Round Capital</span>
+              </div>
+              <h4 class="font-semibold text-sm text-gray-900 group-hover:text-teal-700 transition-colors leading-snug">
+                Product-Market Fit : Le framework de First Round Capital pour réussir à percer sur un marché
+              </h4>
+            </div>
+          </a>
+
+          <a href="https://www.le-ticket.fr/quelle-strategie-produit-pour-le-monde-linterview-de-quentin-leredde-son-directeur-produit-et-audience/148852/" class="bg-white rounded-xl p-5 flex gap-5 group cursor-pointer no-underline hover:shadow-sm transition-shadow border border-transparent hover:border-gray-100">
+            <div class="img-teal-deep rounded-lg flex-shrink-0" style="width: 80px; height: 64px;"></div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center gap-2 mb-1 flex-wrap">
+                <span class="tag tag-coulisses">Dans les coulisses</span>
+                <span class="text-gray-400 text-xs">Quentin Leredde · Le Monde</span>
+              </div>
+              <h4 class="font-semibold text-sm text-gray-900 group-hover:text-teal-700 transition-colors leading-snug">
+                Quelle stratégie produit pour Le Monde ? L'interview de son directeur produit et audience
+              </h4>
+            </div>
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ── TESTIMONIALS ── -->
+    <section class="px-10 py-12 bg-white">
+      <div class="max-w-5xl mx-auto">
+        <div class="text-center mb-10">
+          <span class="section-label">7 000 lecteurs chaque mois</span>
+          <h2 class="section-title">Lu par des équipes qui font la tech</h2>
+          <p class="text-gray-500 text-sm mt-1 max-w-md mx-auto">Des CPO, VP Product et fondateurs qui lisent Le Ticket chaque semaine.</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+
+          <div class="testimonial-card">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="avatar img-teal-deep text-sm">EA</div>
+              <div>
+                <div class="font-semibold text-sm text-gray-900">Enzo Avigo</div>
+                <div class="text-gray-400 text-xs">Cofondateur · June.so</div>
+                <div class="text-teal-700 text-xs">Lecteur depuis 2022</div>
+              </div>
+            </div>
+            <p class="text-gray-600 text-sm italic leading-relaxed">"Le meilleur média produit francophone. Des articles qui changent vraiment la façon dont on pense le produit."</p>
+          </div>
+
+          <div class="testimonial-card">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="avatar img-navy text-sm">CP</div>
+              <div>
+                <div class="font-semibold text-sm text-gray-900">Christopher Parola</div>
+                <div class="text-gray-400 text-xs">CPO · Yousign</div>
+                <div class="text-teal-700 text-xs">Lecteur depuis 2021</div>
+              </div>
+            </div>
+            <p class="text-gray-600 text-sm italic leading-relaxed">"Indispensable pour rester au courant des pratiques des meilleures boîtes tech européennes."</p>
+          </div>
+
+          <div class="testimonial-card">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="avatar img-purple text-sm">AR</div>
+              <div>
+                <div class="font-semibold text-sm text-gray-900">Antso Rakoto</div>
+                <div class="text-gray-400 text-xs">VP Product · France Télévisions</div>
+                <div class="text-teal-700 text-xs">Lecteur depuis 2020</div>
+              </div>
+            </div>
+            <p class="text-gray-600 text-sm italic leading-relaxed">"La qualité éditoriale du Ticket est unique en France. Des analyses profondes, jamais superficielles."</p>
+          </div>
+
+          <div class="testimonial-card">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="avatar img-rose text-sm">CI</div>
+              <div>
+                <div class="font-semibold text-sm text-gray-900">Claire Idelot</div>
+                <div class="text-gray-400 text-xs">CPO · Ilek</div>
+                <div class="text-teal-700 text-xs">Lectrice depuis 2021</div>
+              </div>
+            </div>
+            <p class="text-gray-600 text-sm italic leading-relaxed">"La newsletter que j'attends chaque semaine. Toujours actionnable, jamais du bruit."</p>
+          </div>
+
+          <div class="testimonial-card">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="avatar img-amber text-sm">FB</div>
+              <div>
+                <div class="font-semibold text-sm text-gray-900">Frédéric Bardolle</div>
+                <div class="text-gray-400 text-xs">Lead PM AI · Scaleway</div>
+                <div class="text-teal-700 text-xs">Lecteur depuis 2021</div>
+              </div>
+            </div>
+            <p class="text-gray-600 text-sm italic leading-relaxed">"Le seul média qui couvre vraiment l'IA produit avec le niveau de profondeur qu'elle mérite."</p>
+          </div>
+
+          <div class="testimonial-card">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="avatar img-green text-sm">LN</div>
+              <div>
+                <div class="font-semibold text-sm text-gray-900">Laure Nilles</div>
+                <div class="text-gray-400 text-xs">Product Director · Yousign</div>
+                <div class="text-teal-700 text-xs">Lectrice depuis 2021</div>
+              </div>
+            </div>
+            <p class="text-gray-600 text-sm italic leading-relaxed">"Ce que j'aime avec Le Ticket : des vrais retours d'expérience de praticiens, pas de la théorie."</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ── PREMIUM ── -->
+    <section class="px-10 py-14" style="background: #F8F9FA;">
+      <div class="max-w-4xl mx-auto">
+        <div class="text-center mb-10">
+          <span class="section-label">Investissez dans votre progression</span>
+          <h2 class="section-title">Le Ticket Premium</h2>
+          <p class="text-gray-500 text-sm mt-2">Tout ce qu'il faut pour progresser et faire progresser son produit.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-2xl mx-auto">
+
+          <!-- Free -->
+          <div class="bg-white border border-gray-200 rounded-2xl p-7">
+            <div class="mb-5">
+              <h3 class="font-serif text-xl text-gray-900 mb-1">Le Ticket</h3>
+              <div class="text-gray-400 font-medium text-sm">Gratuit</div>
+            </div>
+            <ul class="flex flex-col gap-3 mb-7">
+              <li class="flex items-start gap-2.5">
+                <svg width="17" height="17" viewBox="0 0 18 18" fill="none" class="flex-shrink-0 mt-0.5"><circle cx="9" cy="9" r="8" fill="#D1FAE5"/><path d="M5 9l3 3 5-5" stroke="#059669" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <span class="text-sm text-gray-600">4 newsletters / mois <span class="text-gray-400">(dont 3 abrégées)</span></span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <svg width="17" height="17" viewBox="0 0 18 18" fill="none" class="flex-shrink-0 mt-0.5"><circle cx="9" cy="9" r="8" fill="#F3F4F6"/><path d="M6 12L12 6M6 6l6 6" stroke="#D1D5DB" stroke-width="1.5" stroke-linecap="round"/></svg>
+                <span class="text-sm text-gray-400 line-through">L'intégralité des articles et guides</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <svg width="17" height="17" viewBox="0 0 18 18" fill="none" class="flex-shrink-0 mt-0.5"><circle cx="9" cy="9" r="8" fill="#F3F4F6"/><path d="M6 12L12 6M6 6l6 6" stroke="#D1D5DB" stroke-width="1.5" stroke-linecap="round"/></svg>
+                <span class="text-sm text-gray-400 line-through">Les fiches de lecture Produit</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <svg width="17" height="17" viewBox="0 0 18 18" fill="none" class="flex-shrink-0 mt-0.5"><circle cx="9" cy="9" r="8" fill="#F3F4F6"/><path d="M6 12L12 6M6 6l6 6" stroke="#D1D5DB" stroke-width="1.5" stroke-linecap="round"/></svg>
+                <span class="text-sm text-gray-400 line-through">Les Émissions du Ticket (vidéo)</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <svg width="17" height="17" viewBox="0 0 18 18" fill="none" class="flex-shrink-0 mt-0.5"><circle cx="9" cy="9" r="8" fill="#D1FAE5"/><path d="M5 9l3 3 5-5" stroke="#059669" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <span class="text-sm text-gray-600">De la tendresse</span>
+              </li>
+            </ul>
+            <a href="https://www.le-ticket.fr/newsletter-product-management/" class="block text-center border border-gray-300 text-gray-600 font-semibold py-2.5 rounded-xl hover:border-gray-500 transition-colors text-sm">
+              S'inscrire gratuitement
+            </a>
+          </div>
+
+          <!-- Premium -->
+          <div class="rounded-2xl p-7 relative overflow-hidden" style="background: var(--teal-sidebar);">
+            <div class="absolute top-0 right-0 bg-amber-400 text-gray-900 text-xs font-bold px-3 py-1.5 rounded-bl-xl">
+              −20% annuel
+            </div>
+            <div class="mb-5">
+              <h3 class="font-serif text-xl text-white mb-1">Le Ticket <span class="text-amber-400">Premium</span></h3>
+              <div class="text-white/80 font-semibold text-sm">200 € / an <span class="text-white/40 font-normal">ou 20 €/mois</span></div>
+              <div class="text-white/40 text-xs mt-1">Tarif réduit 85 €/an · étudiants & chercheurs d'emploi</div>
+            </div>
+            <ul class="flex flex-col gap-3 mb-7">
+              <li class="flex items-start gap-2.5">
+                <svg width="17" height="17" viewBox="0 0 18 18" fill="none" class="flex-shrink-0 mt-0.5"><circle cx="9" cy="9" r="8" fill="rgba(252,211,77,.2)"/><path d="M5 9l3 3 5-5" stroke="#FCD34D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <span class="text-sm text-white/90">4 newsletters intégrales / mois</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <svg width="17" height="17" viewBox="0 0 18 18" fill="none" class="flex-shrink-0 mt-0.5"><circle cx="9" cy="9" r="8" fill="rgba(252,211,77,.2)"/><path d="M5 9l3 3 5-5" stroke="#FCD34D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <span class="text-sm text-white/90">L'intégralité des articles et guides</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <svg width="17" height="17" viewBox="0 0 18 18" fill="none" class="flex-shrink-0 mt-0.5"><circle cx="9" cy="9" r="8" fill="rgba(252,211,77,.2)"/><path d="M5 9l3 3 5-5" stroke="#FCD34D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <span class="text-sm text-white/90">Les fiches de lecture Produit <span class="text-white/50 text-xs">(30+)</span></span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <svg width="17" height="17" viewBox="0 0 18 18" fill="none" class="flex-shrink-0 mt-0.5"><circle cx="9" cy="9" r="8" fill="rgba(252,211,77,.2)"/><path d="M5 9l3 3 5-5" stroke="#FCD34D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <span class="text-sm text-white/90">Les Émissions du Ticket (vidéo)</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <svg width="17" height="17" viewBox="0 0 18 18" fill="none" class="flex-shrink-0 mt-0.5"><circle cx="9" cy="9" r="8" fill="rgba(252,211,77,.2)"/><path d="M5 9l3 3 5-5" stroke="#FCD34D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <span class="text-sm text-white/90">Canal WhatsApp privé de veille</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <svg width="17" height="17" viewBox="0 0 18 18" fill="none" class="flex-shrink-0 mt-0.5"><circle cx="9" cy="9" r="8" fill="rgba(252,211,77,.2)"/><path d="M5 9l3 3 5-5" stroke="#FCD34D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <span class="text-sm text-white/90">Réductions sur les formations à l'IA</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <svg width="17" height="17" viewBox="0 0 18 18" fill="none" class="flex-shrink-0 mt-0.5"><circle cx="9" cy="9" r="8" fill="rgba(252,211,77,.2)"/><path d="M5 9l3 3 5-5" stroke="#FCD34D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <span class="text-sm text-white/90">Accès aux conférences à tarifs préférentiels</span>
+              </li>
+            </ul>
+            <div class="flex flex-col gap-2.5">
+              <a href="https://www.le-ticket.fr/le-ticket-premium-2024/" class="block text-center bg-amber-400 hover:bg-amber-300 text-gray-900 font-bold py-2.5 rounded-xl transition-colors text-sm">
+                Abonnement annuel — 200 €/an
+              </a>
+              <a href="https://www.le-ticket.fr/le-ticket-premium-2024/" class="block text-center bg-white/10 hover:bg-white/18 text-white font-semibold py-2.5 rounded-xl border border-white/20 transition-colors text-sm">
+                Abonnement mensuel — 20 €/mois
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── NEWSLETTER CTA ── -->
+    <section style="background: var(--ink);" class="px-10 py-12">
+      <div class="max-w-xl mx-auto text-center">
+        <span class="text-amber-400 text-xs font-bold uppercase tracking-widest block mb-3">Newsletter gratuite</span>
+        <h2 class="font-serif text-2xl text-white mb-3">Chaque semaine dans votre boîte mail</h2>
+        <p class="text-white/55 text-sm mb-7">Les analyses les plus utiles sur le produit, l'IA et la tech européenne. Rejoignez 7 000 lecteurs.</p>
+        <form class="flex gap-3 max-w-sm mx-auto" onsubmit="return false;">
+          <input
+            type="email"
+            placeholder="votre@email.fr"
+            class="flex-1 bg-white/10 border border-white/20 rounded-lg px-4 py-2.5 text-white placeholder-white/40 text-sm outline-none focus:border-amber-400 transition-colors"
+          />
+          <button type="submit" class="bg-amber-400 hover:bg-amber-300 text-gray-900 font-bold px-5 py-2.5 rounded-lg transition-colors text-sm whitespace-nowrap">
+            S'inscrire
+          </button>
+        </form>
+        <p class="text-white/25 text-xs mt-4">Gratuit · Sans spam · Désinscription en 1 clic</p>
+      </div>
+    </section>
+
+    <!-- ── FOOTER ── -->
+    <footer style="background: #060D18;" class="px-10 py-10">
+      <div class="max-w-5xl mx-auto">
+        <div class="flex flex-wrap justify-between gap-8 mb-8">
+          <div>
+            <div class="flex items-center gap-2 mb-3">
+              <div class="w-6 h-6 bg-white/10 rounded flex items-center justify-content: center; padding: 4px;">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="white"><rect x="2" y="2" width="9" height="9" rx="1"/><rect x="13" y="2" width="9" height="9" rx="1" opacity=".5"/><rect x="2" y="13" width="9" height="9" rx="1" opacity=".5"/></svg>
+              </div>
+              <span class="text-white font-bold text-sm">Le Ticket</span>
+            </div>
+            <p class="text-white/35 text-xs max-w-xs leading-relaxed">Le média des équipes tech européennes.</p>
+          </div>
+
+          <div class="flex flex-wrap gap-12">
+            <div>
+              <div class="text-white/35 text-xs font-bold uppercase tracking-wider mb-3">Contenu</div>
+              <div class="flex flex-col gap-2">
+                <a href="https://www.le-ticket.fr/tous-les-articles/" class="text-white/55 hover:text-white text-sm transition-colors">Tous les articles</a>
+                <a href="https://www.le-ticket.fr/podcast-ticket-product-management/" class="text-white/55 hover:text-white text-sm transition-colors">Les podcasts</a>
+                <a href="https://www.le-ticket.fr/les-emissions-ticket-product-management-ia/" class="text-white/55 hover:text-white text-sm transition-colors">Les Émissions</a>
+                <a href="https://www.le-ticket.fr/newsletter-product-management/" class="text-white/55 hover:text-white text-sm transition-colors">La newsletter</a>
+              </div>
+            </div>
+            <div>
+              <div class="text-white/35 text-xs font-bold uppercase tracking-wider mb-3">Premium</div>
+              <div class="flex flex-col gap-2">
+                <a href="https://www.le-ticket.fr/le-ticket-premium-2024/" class="text-white/55 hover:text-white text-sm transition-colors">Devenir Premium</a>
+                <a href="https://www.le-ticket.fr/collections/" class="text-white/55 hover:text-white text-sm transition-colors">Les guides</a>
+                <a href="https://www.le-ticket.fr/tag/fiche-lecture-product-management/" class="text-white/55 hover:text-white text-sm transition-colors">Fiches de lecture</a>
+              </div>
+            </div>
+            <div>
+              <div class="text-white/35 text-xs font-bold uppercase tracking-wider mb-3">Légal</div>
+              <div class="flex flex-col gap-2">
+                <a href="https://www.le-ticket.fr/mentions-legales/" class="text-white/55 hover:text-white text-sm transition-colors">Mentions légales</a>
+                <a href="https://www.le-ticket.fr/condition-generales-vente-utilisation/" class="text-white/55 hover:text-white text-sm transition-colors">CGV / CGU</a>
+                <a href="mailto:contact@le-ticket.fr" class="text-white/55 hover:text-white text-sm transition-colors">Contact</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="border-t border-white/10 pt-6 flex flex-wrap items-center justify-between gap-4">
+          <p class="text-white/25 text-xs">© 2025 Le Ticket — Tous droits réservés</p>
+          <p class="text-white/25 text-xs">Fait depuis Paris, pour la tech européenne</p>
+        </div>
+      </div>
+    </footer>
+
+  </div><!-- /#main -->
+</div><!-- /.page-layout -->
+
+</body>
+</html>

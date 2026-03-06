@@ -1,0 +1,1323 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Le Ticket — Le média des équipes tech européennes</title>
+  <meta name="description" content="Analyses et interviews pour les dirigeants tech européens qui pensent à l'échelle mondiale. Product, IA, Growth, Leadership." />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            serif: ['DM Serif Display', 'Georgia', 'serif'],
+            sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+          },
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body { font-family: 'Inter', -apple-system, sans-serif; background: #F7F6F3; color: #0C1628; }
+    .font-serif { font-family: 'DM Serif Display', Georgia, serif; }
+    h1, h2.editorial { font-family: 'DM Serif Display', Georgia, serif; }
+
+    /* Gradient placeholders for article images */
+    .img-blue   { background: linear-gradient(135deg, #1E3A8A 0%, #2563EB 60%, #60A5FA 100%); }
+    .img-green  { background: linear-gradient(135deg, #064E3B 0%, #059669 60%, #6EE7B7 100%); }
+    .img-amber  { background: linear-gradient(135deg, #78350F 0%, #D97706 60%, #FCD34D 100%); }
+    .img-purple { background: linear-gradient(135deg, #4C1D95 0%, #7C3AED 60%, #C4B5FD 100%); }
+    .img-rose   { background: linear-gradient(135deg, #881337 0%, #E11D48 60%, #FDA4AF 100%); }
+    .img-slate  { background: linear-gradient(135deg, #1E293B 0%, #475569 60%, #94A3B8 100%); }
+    .img-teal   { background: linear-gradient(135deg, #134E4A 0%, #0D9488 60%, #5EEAD4 100%); }
+    .img-indigo { background: linear-gradient(135deg, #312E81 0%, #4F46E5 60%, #A5B4FC 100%); }
+
+    /* Tag pills */
+    .tag-ia         { background: #EDE9FE; color: #5B21B6; }
+    .tag-product    { background: #DBEAFE; color: #1E40AF; }
+    .tag-growth     { background: #D1FAE5; color: #065F46; }
+    .tag-leadership { background: #FEF3C7; color: #92400E; }
+    .tag-tech       { background: #F1F5F9; color: #334155; }
+    .tag-strategie  { background: #FCE7F3; color: #9D174D; }
+
+    /* Premium / Free badge */
+    .badge-premium { background: #FEF3C7; color: #92400E; border: 1px solid #FDE68A; }
+    .badge-free    { background: #D1FAE5; color: #065F46; }
+
+    /* Tab active state */
+    .tab-btn.active {
+      background: #0C1628;
+      color: #fff;
+    }
+    .tab-btn {
+      transition: all 0.15s ease;
+    }
+
+    /* Article card hover */
+    .article-card { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+    .article-card:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(12,22,40,0.1); }
+
+    /* Expert card */
+    .expert-card { transition: transform 0.2s ease; }
+    .expert-card:hover { transform: translateY(-2px); }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: #F7F6F3; }
+    ::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 3px; }
+
+    /* Mobile menu */
+    #mobile-menu { transition: all 0.2s ease; }
+
+    /* Blockquote pull style */
+    .pull-quote { border-left: 3px solid #2563EB; padding-left: 1.25rem; }
+  </style>
+</head>
+
+<body class="antialiased">
+
+  <!-- ═══════════════════════════════════════════════════
+       TOP ANNOUNCEMENT BAR
+  ══════════════════════════════════════════════════════ -->
+  <div class="bg-[#0C1628] text-white text-xs py-2.5 px-4 text-center leading-relaxed">
+    <span class="opacity-60">Nouveau →</span>
+    <strong class="mx-1">Canal WhatsApp exclusif</strong>
+    <span class="opacity-60">réservé aux membres Premium</span>
+    <span class="mx-3 opacity-20">|</span>
+    <a href="#" class="underline underline-offset-2 opacity-75 hover:opacity-100 transition-opacity">
+      Rejoindre la communauté
+    </a>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+       HEADER / NAVIGATION
+  ══════════════════════════════════════════════════════ -->
+  <header class="sticky top-0 z-50 bg-[#F7F6F3]/96 backdrop-blur border-b border-[#E5E0D8]">
+    <nav class="max-w-7xl mx-auto px-6 h-[62px] flex items-center justify-between gap-6">
+
+      <!-- Logo -->
+      <a href="/" class="font-serif text-[26px] font-normal text-[#0C1628] tracking-tight flex-shrink-0">
+        Le Ticket
+      </a>
+
+      <!-- Nav links (desktop) -->
+      <div class="hidden lg:flex items-center gap-7 text-[13.5px] font-medium text-[#4B5563]">
+        <a href="#articles" class="hover:text-[#0C1628] transition-colors">Articles</a>
+        <a href="#collections" class="hover:text-[#0C1628] transition-colors">Intelligence Artificielle</a>
+        <a href="#collections" class="hover:text-[#0C1628] transition-colors">Product</a>
+        <a href="#collections" class="hover:text-[#0C1628] transition-colors">Growth</a>
+        <a href="#formats" class="hover:text-[#0C1628] transition-colors">Podcasts &amp; Vidéos</a>
+        <a href="#" class="hover:text-[#0C1628] transition-colors">Archives</a>
+      </div>
+
+      <!-- CTA -->
+      <div class="flex items-center gap-3 flex-shrink-0">
+        <a href="#" class="hidden md:block text-[13px] text-[#6B7280] hover:text-[#0C1628] transition-colors">
+          Se connecter
+        </a>
+        <a href="#premium" class="bg-[#0C1628] text-white text-[13px] font-semibold px-4 py-2 rounded-full hover:bg-[#1E3A5F] transition-colors">
+          Premium →
+        </a>
+        <!-- Mobile hamburger -->
+        <button id="menu-toggle" class="lg:hidden p-1 text-[#0C1628]" onclick="toggleMenu()">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Mobile menu -->
+    <div id="mobile-menu" class="hidden lg:hidden border-t border-[#E5E0D8] bg-[#F7F6F3] px-6 py-4 space-y-3">
+      <a href="#" class="block text-sm font-medium text-[#374151] hover:text-[#0C1628]">Articles</a>
+      <a href="#" class="block text-sm font-medium text-[#374151] hover:text-[#0C1628]">Intelligence Artificielle</a>
+      <a href="#" class="block text-sm font-medium text-[#374151] hover:text-[#0C1628]">Product</a>
+      <a href="#" class="block text-sm font-medium text-[#374151] hover:text-[#0C1628]">Growth</a>
+      <a href="#" class="block text-sm font-medium text-[#374151] hover:text-[#0C1628]">Podcasts &amp; Vidéos</a>
+    </div>
+  </header>
+
+
+  <!-- ═══════════════════════════════════════════════════
+       HERO SECTION
+  ══════════════════════════════════════════════════════ -->
+  <section class="max-w-7xl mx-auto px-6 pt-14 pb-20">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+
+      <!-- Left: Manifesto -->
+      <div class="lg:col-span-7">
+        <div class="flex items-center gap-2.5 mb-7">
+          <div class="w-7 h-px bg-[#2563EB]"></div>
+          <span class="text-[11px] font-semibold tracking-[0.18em] uppercase text-[#2563EB]">
+            Le média des équipes tech européennes
+          </span>
+        </div>
+
+        <h1 class="font-serif text-[52px] lg:text-[64px] xl:text-[72px] leading-[1.04] text-[#0C1628] mb-6">
+          Les ressorts des géants tech qui façonnent l'Europe
+        </h1>
+
+        <p class="text-[17px] text-[#4B5563] leading-relaxed mb-8 max-w-[520px]">
+          Des analyses approfondies sur le product, l'IA, la growth et le leadership tech.
+          Pensées pour les CEO, CPO, CTO et CMO qui construisent à l'échelle mondiale.
+        </p>
+
+        <div class="flex flex-wrap gap-3 mb-10">
+          <a href="#articles" class="bg-[#2563EB] text-white font-semibold px-6 py-3 rounded-full text-[14px] hover:bg-[#1D4ED8] transition-colors shadow-sm">
+            Lire les articles gratuits
+          </a>
+          <a href="#premium" class="border-2 border-[#0C1628] text-[#0C1628] font-semibold px-6 py-3 rounded-full text-[14px] hover:bg-[#0C1628] hover:text-white transition-all">
+            Découvrir le Premium
+          </a>
+        </div>
+
+        <!-- Stats -->
+        <div class="flex flex-wrap items-center gap-6 pt-7 border-t border-[#E5E0D8] text-sm">
+          <div>
+            <span class="block font-serif text-[28px] text-[#0C1628]">500+</span>
+            <span class="text-[#9CA3AF] text-[13px]">articles publiés</span>
+          </div>
+          <div class="w-px h-9 bg-[#E5E0D8]"></div>
+          <div>
+            <span class="block font-serif text-[28px] text-[#0C1628]">50 000</span>
+            <span class="text-[#9CA3AF] text-[13px]">lecteurs mensuels</span>
+          </div>
+          <div class="w-px h-9 bg-[#E5E0D8]"></div>
+          <div>
+            <span class="block font-serif text-[28px] text-[#0C1628]">4 ans</span>
+            <span class="text-[#9CA3AF] text-[13px]">de contenus archivés</span>
+          </div>
+          <div class="w-px h-9 bg-[#E5E0D8]"></div>
+          <div>
+            <span class="block font-serif text-[28px] text-[#0C1628]">12–15 min</span>
+            <span class="text-[#9CA3AF] text-[13px]">par article</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Featured article -->
+      <div class="lg:col-span-5 space-y-3">
+
+        <!-- Main featured card -->
+        <div class="article-card bg-white rounded-2xl overflow-hidden border border-[#E5E0D8] shadow-sm">
+          <div class="img-blue h-52 relative">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+            <div class="absolute top-4 left-4 flex gap-2">
+              <span class="tag-ia text-[11px] font-semibold px-2.5 py-1 rounded-full">INTELLIGENCE ARTIFICIELLE</span>
+            </div>
+            <div class="absolute top-4 right-4">
+              <span class="badge-premium text-[11px] font-semibold px-2.5 py-1 rounded-full">PREMIUM</span>
+            </div>
+            <div class="absolute bottom-4 left-4 text-white/80 text-xs">12 min de lecture</div>
+          </div>
+          <div class="p-5">
+            <h2 class="font-serif text-[20px] leading-snug text-[#0C1628] mb-2.5">
+              Comment les CPTO européens réinventent leurs roadmaps à l'ère de l'IA générative
+            </h2>
+            <p class="text-[13px] text-[#6B7280] leading-relaxed mb-4">
+              De Doctolib à Contentsquare, les responsables produit témoignent de leur transformation.
+            </p>
+            <div class="flex items-center justify-between pt-3.5 border-t border-[#F3F4F6]">
+              <div class="flex items-center gap-2">
+                <div class="w-7 h-7 rounded-full img-blue flex items-center justify-center text-white text-[10px] font-bold">ML</div>
+                <span class="text-[12px] font-medium text-[#374151]">Marie Laurent</span>
+              </div>
+              <a href="#" class="text-[13px] font-semibold text-[#2563EB] hover:text-[#1D4ED8] flex items-center gap-1">
+                Lire l'article →
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Small secondary card -->
+        <div class="article-card bg-white rounded-xl border border-[#E5E0D8] p-4 flex gap-4 items-center">
+          <div class="img-green w-16 h-16 rounded-lg flex-shrink-0"></div>
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center gap-2 mb-1">
+              <span class="tag-growth text-[10px] font-semibold px-2 py-0.5 rounded-full">GROWTH</span>
+              <span class="text-[11px] text-[#9CA3AF]">9 min</span>
+            </div>
+            <h3 class="font-serif text-[14px] leading-snug text-[#0C1628]">
+              La méthode growth de Spotify, décryptée pour les scale-ups européennes
+            </h3>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════
+       SOCIAL PROOF — COMPANY LOGOS
+  ══════════════════════════════════════════════════════ -->
+  <section class="border-y border-[#E5E0D8] bg-white py-10 px-6">
+    <div class="max-w-7xl mx-auto">
+      <p class="text-center text-[11px] font-semibold tracking-[0.16em] uppercase text-[#B0A898] mb-7">
+        Les équipes de ces entreprises sont membres Premium du Ticket
+      </p>
+      <div class="flex flex-wrap items-center justify-center gap-x-10 gap-y-5">
+        <span class="text-[#374151] font-bold text-[17px] tracking-tight opacity-50 hover:opacity-80 transition-opacity cursor-default select-none">leboncoin</span>
+        <span class="text-[#374151] font-black text-[17px] tracking-widest opacity-50 hover:opacity-80 transition-opacity cursor-default select-none">SNCF</span>
+        <span class="text-[#374151] font-bold text-[17px] opacity-50 hover:opacity-80 transition-opacity cursor-default select-none">Decathlon</span>
+        <span class="text-[#374151] font-semibold text-[17px] opacity-50 hover:opacity-80 transition-opacity cursor-default select-none">Qonto</span>
+        <span class="text-[#374151] font-bold text-[17px] opacity-50 hover:opacity-80 transition-opacity cursor-default select-none">ManoMano</span>
+        <span class="text-[#374151] font-semibold text-[17px] opacity-50 hover:opacity-80 transition-opacity cursor-default select-none">Contentsquare</span>
+        <span class="text-[#374151] font-bold text-[17px] opacity-50 hover:opacity-80 transition-opacity cursor-default select-none">Dataiku</span>
+        <span class="text-[#374151] font-semibold text-[17px] opacity-50 hover:opacity-80 transition-opacity cursor-default select-none">Back Market</span>
+        <span class="text-[#374151] font-bold text-[17px] opacity-50 hover:opacity-80 transition-opacity cursor-default select-none">Alan</span>
+        <span class="text-[#374151] font-semibold text-[17px] opacity-50 hover:opacity-80 transition-opacity cursor-default select-none">BlaBlaCar</span>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════
+       LATEST ARTICLES — "À LA UNE"
+  ══════════════════════════════════════════════════════ -->
+  <section id="articles" class="max-w-7xl mx-auto px-6 py-20">
+
+    <!-- Section header -->
+    <div class="flex items-end justify-between mb-10 pb-5 border-b border-[#E5E0D8]">
+      <div>
+        <p class="text-[11px] font-semibold tracking-[0.16em] uppercase text-[#9CA3AF] mb-2">Dernières publications</p>
+        <h2 class="font-serif text-[38px] text-[#0C1628]">À la une</h2>
+      </div>
+      <a href="#" class="text-[13px] font-semibold text-[#2563EB] hover:text-[#1D4ED8] flex items-center gap-1 pb-1">
+        Voir tous les articles →
+      </a>
+    </div>
+
+    <!-- Main grid: 1 large + 2 secondary -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+
+      <!-- Main featured article (large) -->
+      <div class="lg:col-span-7 article-card bg-white rounded-2xl overflow-hidden border border-[#E5E0D8] shadow-sm cursor-pointer">
+        <div class="img-rose h-72 relative">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+          <div class="absolute top-5 left-5 flex gap-2">
+            <span class="tag-strategie text-[11px] font-semibold px-2.5 py-1 rounded-full">STRATÉGIE</span>
+            <span class="badge-premium text-[11px] font-semibold px-2.5 py-1 rounded-full">PREMIUM</span>
+          </div>
+        </div>
+        <div class="p-7">
+          <h2 class="font-serif text-[28px] leading-tight text-[#0C1628] mb-3">
+            BlaBlaCar à 10 ans : Nicolas Brusson revient sur les pivots qui ont tout changé
+          </h2>
+          <p class="text-[15px] text-[#6B7280] leading-relaxed mb-5">
+            Comment la scale-up française est passée d'un service de covoiturage local à un groupe de mobilité présent dans 21 pays. Le CEO revient sur les décisions les plus difficiles.
+          </p>
+          <div class="flex items-center justify-between pt-5 border-t border-[#F3F4F6]">
+            <div class="flex items-center gap-2.5">
+              <div class="w-8 h-8 rounded-full img-rose flex items-center justify-center text-white text-xs font-bold">JD</div>
+              <div>
+                <span class="block text-[13px] font-semibold text-[#374151]">Jean Dumas</span>
+                <span class="text-[12px] text-[#9CA3AF]">15 min de lecture · 4 mars 2026</span>
+              </div>
+            </div>
+            <span class="text-[13px] font-semibold text-[#2563EB]">Lire →</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Secondary articles column -->
+      <div class="lg:col-span-5 flex flex-col gap-5">
+
+        <!-- Article 2 -->
+        <div class="article-card bg-white rounded-2xl overflow-hidden border border-[#E5E0D8] shadow-sm cursor-pointer flex-1">
+          <div class="img-purple h-40 relative">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+            <div class="absolute top-4 left-4">
+              <span class="tag-product text-[11px] font-semibold px-2.5 py-1 rounded-full">PRODUCT</span>
+            </div>
+            <div class="absolute top-4 right-4">
+              <span class="badge-free text-[11px] font-semibold px-2.5 py-1 rounded-full">GRATUIT</span>
+            </div>
+          </div>
+          <div class="p-5">
+            <h3 class="font-serif text-[19px] leading-snug text-[#0C1628] mb-2">
+              Le framework OKR de Figma, décrypté par son ex-VP Product
+            </h3>
+            <p class="text-[13px] text-[#6B7280] leading-relaxed mb-4">
+              Yuhki Yamashita détaille comment Figma a aligné 200 personnes sur une seule vision produit.
+            </p>
+            <div class="flex items-center justify-between pt-3.5 border-t border-[#F3F4F6]">
+              <span class="text-[12px] text-[#9CA3AF]">Sophie Martin · 11 min</span>
+              <span class="text-[13px] font-semibold text-[#2563EB]">Lire →</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Article 3 -->
+        <div class="article-card bg-white rounded-2xl overflow-hidden border border-[#E5E0D8] shadow-sm cursor-pointer flex-1">
+          <div class="img-green h-40 relative">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+            <div class="absolute top-4 left-4">
+              <span class="tag-growth text-[11px] font-semibold px-2.5 py-1 rounded-full">GROWTH</span>
+            </div>
+            <div class="absolute top-4 right-4">
+              <span class="badge-free text-[11px] font-semibold px-2.5 py-1 rounded-full">GRATUIT</span>
+            </div>
+          </div>
+          <div class="p-5">
+            <h3 class="font-serif text-[19px] leading-snug text-[#0C1628] mb-2">
+              Comment Qonto a construit sa machine growth pour conquérir l'Europe B2B
+            </h3>
+            <p class="text-[13px] text-[#6B7280] leading-relaxed mb-4">
+              De 0 à 500 000 clients en 5 ans : la stratégie d'acquisition derrière la néobanque française.
+            </p>
+            <div class="flex items-center justify-between pt-3.5 border-t border-[#F3F4F6]">
+              <span class="text-[12px] text-[#9CA3AF]">Lucas Bernard · 9 min</span>
+              <span class="text-[13px] font-semibold text-[#2563EB]">Lire →</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Row of 3 smaller articles -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mt-5">
+
+      <div class="article-card bg-white rounded-xl border border-[#E5E0D8] p-5 flex gap-4 cursor-pointer">
+        <div class="img-amber w-20 h-20 rounded-lg flex-shrink-0"></div>
+        <div>
+          <div class="flex gap-1.5 mb-1.5">
+            <span class="tag-ia text-[10px] font-semibold px-2 py-0.5 rounded-full">IA</span>
+            <span class="badge-premium text-[10px] font-semibold px-2 py-0.5 rounded-full">PREMIUM</span>
+          </div>
+          <h4 class="font-serif text-[15px] leading-snug text-[#0C1628]">
+            Les agents IA en production : retours d'expérience de 8 CTO européens
+          </h4>
+          <p class="text-[11px] text-[#9CA3AF] mt-1.5">13 min · 28 fév. 2026</p>
+        </div>
+      </div>
+
+      <div class="article-card bg-white rounded-xl border border-[#E5E0D8] p-5 flex gap-4 cursor-pointer">
+        <div class="img-teal w-20 h-20 rounded-lg flex-shrink-0"></div>
+        <div>
+          <div class="flex gap-1.5 mb-1.5">
+            <span class="tag-leadership text-[10px] font-semibold px-2 py-0.5 rounded-full">LEADERSHIP</span>
+          </div>
+          <h4 class="font-serif text-[15px] leading-snug text-[#0C1628]">
+            Chief of Staff : le rôle qui manquait aux scale-ups européennes
+          </h4>
+          <p class="text-[11px] text-[#9CA3AF] mt-1.5">10 min · 21 fév. 2026</p>
+        </div>
+      </div>
+
+      <div class="article-card bg-white rounded-xl border border-[#E5E0D8] p-5 flex gap-4 cursor-pointer">
+        <div class="img-indigo w-20 h-20 rounded-lg flex-shrink-0"></div>
+        <div>
+          <div class="flex gap-1.5 mb-1.5">
+            <span class="tag-tech text-[10px] font-semibold px-2 py-0.5 rounded-full">TECH</span>
+            <span class="badge-premium text-[10px] font-semibold px-2 py-0.5 rounded-full">PREMIUM</span>
+          </div>
+          <h4 class="font-serif text-[15px] leading-snug text-[#0C1628]">
+            Comment Doctolib a replatformé son infra sans interrompre le service
+          </h4>
+          <p class="text-[11px] text-[#9CA3AF] mt-1.5">14 min · 14 fév. 2026</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════
+       EXPERTS — "AU MICRO DU TICKET"
+  ══════════════════════════════════════════════════════ -->
+  <section class="bg-[#0C1628] py-20 px-6">
+    <div class="max-w-7xl mx-auto">
+
+      <div class="text-center mb-14">
+        <p class="text-[11px] font-semibold tracking-[0.18em] uppercase text-[#4B9FFF] mb-4">
+          Advice from builders, for builders
+        </p>
+        <h2 class="font-serif text-[40px] lg:text-[50px] text-white leading-tight mb-4">
+          Les dirigeants qui font la tech<br class="hidden md:block" /> européenne
+        </h2>
+        <p class="text-[16px] text-[#8B9CB0] max-w-xl mx-auto leading-relaxed">
+          Nous interviewons les CEO, CPO, CTO et fondateurs des entreprises qui définissent la tech en Europe.
+        </p>
+      </div>
+
+      <!-- Experts grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-[#1E2D40]">
+
+        <!-- Expert 1 -->
+        <div class="expert-card bg-[#0C1628] p-7 border border-[#1E2D40] hover:bg-[#111F32] cursor-pointer">
+          <div class="flex items-center gap-4 mb-4">
+            <div class="w-14 h-14 rounded-full img-rose flex items-center justify-center text-white font-bold text-lg flex-shrink-0">NB</div>
+            <div>
+              <h3 class="text-white font-semibold text-[15px]">Nicolas Brusson</h3>
+              <p class="text-[#6B7280] text-[13px]">CEO &amp; Co-fondateur, BlaBlaCar</p>
+            </div>
+          </div>
+          <p class="text-[#8B9CB0] text-[13px] leading-relaxed mb-4">
+            "L'erreur classique des fondateurs européens est de viser l'Europe avant d'avoir un modèle unit economics solide."
+          </p>
+          <a href="#" class="text-[#4B9FFF] text-[13px] font-semibold hover:text-blue-300 flex items-center gap-1">
+            Lire l'interview →
+          </a>
+        </div>
+
+        <!-- Expert 2 -->
+        <div class="expert-card bg-[#0C1628] p-7 border border-[#1E2D40] hover:bg-[#111F32] cursor-pointer">
+          <div class="flex items-center gap-4 mb-4">
+            <div class="w-14 h-14 rounded-full img-purple flex items-center justify-center text-white font-bold text-lg flex-shrink-0">SN</div>
+            <div>
+              <h3 class="text-white font-semibold text-[15px]">Stanislas Niox-Château</h3>
+              <p class="text-[#6B7280] text-[13px]">CEO &amp; Fondateur, Doctolib</p>
+            </div>
+          </div>
+          <p class="text-[#8B9CB0] text-[13px] leading-relaxed mb-4">
+            "Notre produit doit être si bon qu'il est évident pour un médecin de ne pas imaginer travailler sans nous."
+          </p>
+          <a href="#" class="text-[#4B9FFF] text-[13px] font-semibold hover:text-blue-300 flex items-center gap-1">
+            Lire l'interview →
+          </a>
+        </div>
+
+        <!-- Expert 3 -->
+        <div class="expert-card bg-[#0C1628] p-7 border border-[#1E2D40] hover:bg-[#111F32] cursor-pointer">
+          <div class="flex items-center gap-4 mb-4">
+            <div class="w-14 h-14 rounded-full img-green flex items-center justify-center text-white font-bold text-lg flex-shrink-0">RV</div>
+            <div>
+              <h3 class="text-white font-semibold text-[15px]">Roxanne Varza</h3>
+              <p class="text-[#6B7280] text-[13px]">Directrice, Station F</p>
+            </div>
+          </div>
+          <p class="text-[#8B9CB0] text-[13px] leading-relaxed mb-4">
+            "L'écosystème tech européen a arrêté de se comparer à la Silicon Valley. Enfin."
+          </p>
+          <a href="#" class="text-[#4B9FFF] text-[13px] font-semibold hover:text-blue-300 flex items-center gap-1">
+            Lire l'interview →
+          </a>
+        </div>
+
+        <!-- Expert 4 -->
+        <div class="expert-card bg-[#0C1628] p-7 border border-[#1E2D40] hover:bg-[#111F32] cursor-pointer">
+          <div class="flex items-center gap-4 mb-4">
+            <div class="w-14 h-14 rounded-full img-amber flex items-center justify-center text-white font-bold text-lg flex-shrink-0">AM</div>
+            <div>
+              <h3 class="text-white font-semibold text-[15px]">Alexandre Mahé</h3>
+              <p class="text-[#6B7280] text-[13px]">CPTO, Decathlon Digital</p>
+            </div>
+          </div>
+          <p class="text-[#8B9CB0] text-[13px] leading-relaxed mb-4">
+            "Transformer une organisation de 100 000 personnes avec l'IA, c'est d'abord un problème de culture, pas de technologie."
+          </p>
+          <a href="#" class="text-[#4B9FFF] text-[13px] font-semibold hover:text-blue-300 flex items-center gap-1">
+            Lire l'interview →
+          </a>
+        </div>
+
+        <!-- Expert 5 -->
+        <div class="expert-card bg-[#0C1628] p-7 border border-[#1E2D40] hover:bg-[#111F32] cursor-pointer">
+          <div class="flex items-center gap-4 mb-4">
+            <div class="w-14 h-14 rounded-full img-teal flex items-center justify-center text-white font-bold text-lg flex-shrink-0">LD</div>
+            <div>
+              <h3 class="text-white font-semibold text-[15px]">Laure Duhot</h3>
+              <p class="text-[#6B7280] text-[13px]">Chief of Staff → CEO, Alan</p>
+            </div>
+          </div>
+          <p class="text-[#8B9CB0] text-[13px] leading-relaxed mb-4">
+            "Le rôle de Chief of Staff est souvent mal compris. Bien utilisé, c'est le multiplicateur de force du CEO."
+          </p>
+          <a href="#" class="text-[#4B9FFF] text-[13px] font-semibold hover:text-blue-300 flex items-center gap-1">
+            Lire l'interview →
+          </a>
+        </div>
+
+        <!-- Expert 6 -->
+        <div class="expert-card bg-[#0C1628] p-7 border border-[#1E2D40] hover:bg-[#111F32] cursor-pointer">
+          <div class="flex items-center gap-4 mb-4">
+            <div class="w-14 h-14 rounded-full img-indigo flex items-center justify-center text-white font-bold text-lg flex-shrink-0">PG</div>
+            <div>
+              <h3 class="text-white font-semibold text-[15px]">Pierre-Guillaume Rouget</h3>
+              <p class="text-[#6B7280] text-[13px]">CTO, Contentsquare</p>
+            </div>
+          </div>
+          <p class="text-[#8B9CB0] text-[13px] leading-relaxed mb-4">
+            "Scaler une équipe tech de 50 à 400 ingénieurs : les process qui s'appliquent ne sont pas du tout les mêmes."
+          </p>
+          <a href="#" class="text-[#4B9FFF] text-[13px] font-semibold hover:text-blue-300 flex items-center gap-1">
+            Lire l'interview →
+          </a>
+        </div>
+
+      </div>
+
+      <div class="text-center mt-10">
+        <a href="#" class="border border-[#2D4A6A] text-[#8B9CB0] text-[13px] font-medium px-5 py-2.5 rounded-full hover:border-[#4B9FFF] hover:text-[#4B9FFF] transition-colors">
+          Voir tous les experts interviewés →
+        </a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════
+       COLLECTIONS — PAR RÔLE / JOB-TO-BE-DONE
+  ══════════════════════════════════════════════════════ -->
+  <section id="collections" class="bg-[#F0EDE6] py-20 px-6">
+    <div class="max-w-7xl mx-auto">
+
+      <div class="mb-10">
+        <p class="text-[11px] font-semibold tracking-[0.16em] uppercase text-[#9CA3AF] mb-3">Collections</p>
+        <h2 class="font-serif text-[38px] lg:text-[46px] text-[#0C1628] mb-3">
+          Des contenus pensés pour votre rôle
+        </h2>
+        <p class="text-[16px] text-[#6B7280] max-w-xl">
+          Des années d'analyses organisées selon les défis qui sont les vôtres, quel que soit votre poste.
+        </p>
+      </div>
+
+      <!-- Tabs -->
+      <div class="flex flex-wrap gap-2 mb-8">
+        <button onclick="switchTab('tab-ceo')" class="tab-btn active text-[13px] font-semibold px-4 py-2 rounded-full border border-[#0C1628] transition-all">
+          CEO &amp; Fondateurs
+        </button>
+        <button onclick="switchTab('tab-cpo')" class="tab-btn text-[13px] font-semibold px-4 py-2 rounded-full border border-[#D1C9BC] text-[#6B7280] hover:border-[#0C1628] hover:text-[#0C1628]">
+          CPO &amp; Product Leaders
+        </button>
+        <button onclick="switchTab('tab-cto')" class="tab-btn text-[13px] font-semibold px-4 py-2 rounded-full border border-[#D1C9BC] text-[#6B7280] hover:border-[#0C1628] hover:text-[#0C1628]">
+          CTO &amp; Engineering
+        </button>
+        <button onclick="switchTab('tab-cmo')" class="tab-btn text-[13px] font-semibold px-4 py-2 rounded-full border border-[#D1C9BC] text-[#6B7280] hover:border-[#0C1628] hover:text-[#0C1628]">
+          CMO &amp; Growth
+        </button>
+      </div>
+
+      <!-- Tab content: CEO -->
+      <div id="tab-ceo" class="tab-content">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+
+          <div class="article-card bg-white rounded-xl overflow-hidden border border-[#E5E0D8]">
+            <div class="img-rose h-36"></div>
+            <div class="p-5">
+              <span class="tag-strategie text-[10px] font-semibold px-2 py-0.5 rounded-full">STRATÉGIE</span>
+              <h4 class="font-serif text-[17px] leading-snug text-[#0C1628] mt-2 mb-2">
+                Scaler en Europe : les 5 erreurs fatales des fondateurs tech
+              </h4>
+              <p class="text-[12px] text-[#9CA3AF]">14 min de lecture · Premium</p>
+            </div>
+          </div>
+
+          <div class="article-card bg-white rounded-xl overflow-hidden border border-[#E5E0D8]">
+            <div class="img-amber h-36"></div>
+            <div class="p-5">
+              <span class="tag-leadership text-[10px] font-semibold px-2 py-0.5 rounded-full">LEVÉE DE FONDS</span>
+              <h4 class="font-serif text-[17px] leading-snug text-[#0C1628] mt-2 mb-2">
+                Comment pitcher aux VCs américains quand on est une startup européenne
+              </h4>
+              <p class="text-[12px] text-[#9CA3AF]">11 min de lecture · Gratuit</p>
+            </div>
+          </div>
+
+          <div class="article-card bg-white rounded-xl overflow-hidden border border-[#E5E0D8]">
+            <div class="img-slate h-36"></div>
+            <div class="p-5">
+              <span class="tag-leadership text-[10px] font-semibold px-2 py-0.5 rounded-full">LEADERSHIP</span>
+              <h4 class="font-serif text-[17px] leading-snug text-[#0C1628] mt-2 mb-2">
+                Du co-fondateur au CEO : comment Michelin, Voodoo et Meero ont géré la transition
+              </h4>
+              <p class="text-[12px] text-[#9CA3AF]">13 min de lecture · Premium</p>
+            </div>
+          </div>
+
+        </div>
+        <div class="mt-6 flex items-center justify-between">
+          <p class="text-[13px] text-[#6B7280]">156 articles dans cette collection</p>
+          <a href="#" class="text-[13px] font-semibold text-[#2563EB] hover:text-[#1D4ED8]">
+            Voir toute la collection CEO &amp; Fondateurs →
+          </a>
+        </div>
+      </div>
+
+      <!-- Tab content: CPO -->
+      <div id="tab-cpo" class="tab-content hidden">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+
+          <div class="article-card bg-white rounded-xl overflow-hidden border border-[#E5E0D8]">
+            <div class="img-blue h-36"></div>
+            <div class="p-5">
+              <span class="tag-product text-[10px] font-semibold px-2 py-0.5 rounded-full">PRODUCT</span>
+              <h4 class="font-serif text-[17px] leading-snug text-[#0C1628] mt-2 mb-2">
+                Roadmapping à l'ère de l'IA : comment repenser la priorisation produit
+              </h4>
+              <p class="text-[12px] text-[#9CA3AF]">12 min de lecture · Premium</p>
+            </div>
+          </div>
+
+          <div class="article-card bg-white rounded-xl overflow-hidden border border-[#E5E0D8]">
+            <div class="img-purple h-36"></div>
+            <div class="p-5">
+              <span class="tag-product text-[10px] font-semibold px-2 py-0.5 rounded-full">PRODUCT</span>
+              <h4 class="font-serif text-[17px] leading-snug text-[#0C1628] mt-2 mb-2">
+                Product-led growth : les entreprises européennes qui font mieux que leurs pairs américains
+              </h4>
+              <p class="text-[12px] text-[#9CA3AF]">10 min de lecture · Gratuit</p>
+            </div>
+          </div>
+
+          <div class="article-card bg-white rounded-xl overflow-hidden border border-[#E5E0D8]">
+            <div class="img-teal h-36"></div>
+            <div class="p-5">
+              <span class="tag-product text-[10px] font-semibold px-2 py-0.5 rounded-full">DISCOVERY</span>
+              <h4 class="font-serif text-[17px] leading-snug text-[#0C1628] mt-2 mb-2">
+                Les frameworks de discovery des meilleures équipes produit d'Europe
+              </h4>
+              <p class="text-[12px] text-[#9CA3AF]">15 min de lecture · Premium</p>
+            </div>
+          </div>
+
+        </div>
+        <div class="mt-6 flex items-center justify-between">
+          <p class="text-[13px] text-[#6B7280]">203 articles dans cette collection</p>
+          <a href="#" class="text-[13px] font-semibold text-[#2563EB] hover:text-[#1D4ED8]">
+            Voir toute la collection CPO &amp; Product →
+          </a>
+        </div>
+      </div>
+
+      <!-- Tab content: CTO -->
+      <div id="tab-cto" class="tab-content hidden">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+
+          <div class="article-card bg-white rounded-xl overflow-hidden border border-[#E5E0D8]">
+            <div class="img-indigo h-36"></div>
+            <div class="p-5">
+              <span class="tag-tech text-[10px] font-semibold px-2 py-0.5 rounded-full">ARCHITECTURE</span>
+              <h4 class="font-serif text-[17px] leading-snug text-[#0C1628] mt-2 mb-2">
+                Scaler une infra de 0 à 10M d'utilisateurs : les choix techniques qui comptent
+              </h4>
+              <p class="text-[12px] text-[#9CA3AF]">13 min de lecture · Premium</p>
+            </div>
+          </div>
+
+          <div class="article-card bg-white rounded-xl overflow-hidden border border-[#E5E0D8]">
+            <div class="img-slate h-36"></div>
+            <div class="p-5">
+              <span class="tag-tech text-[10px] font-semibold px-2 py-0.5 rounded-full">ENGINEERING</span>
+              <h4 class="font-serif text-[17px] leading-snug text-[#0C1628] mt-2 mb-2">
+                Comment piloter la dette technique sans ralentir la livraison de valeur
+              </h4>
+              <p class="text-[12px] text-[#9CA3AF]">11 min de lecture · Gratuit</p>
+            </div>
+          </div>
+
+          <div class="article-card bg-white rounded-xl overflow-hidden border border-[#E5E0D8]">
+            <div class="img-green h-36"></div>
+            <div class="p-5">
+              <span class="tag-ia text-[10px] font-semibold px-2 py-0.5 rounded-full">IA EN PROD</span>
+              <h4 class="font-serif text-[17px] leading-snug text-[#0C1628] mt-2 mb-2">
+                Engineering culture : comment Spotify, Zalando et Deezer forment leurs ingénieurs
+              </h4>
+              <p class="text-[12px] text-[#9CA3AF]">14 min de lecture · Premium</p>
+            </div>
+          </div>
+
+        </div>
+        <div class="mt-6 flex items-center justify-between">
+          <p class="text-[13px] text-[#6B7280]">89 articles dans cette collection</p>
+          <a href="#" class="text-[13px] font-semibold text-[#2563EB] hover:text-[#1D4ED8]">
+            Voir toute la collection CTO &amp; Engineering →
+          </a>
+        </div>
+      </div>
+
+      <!-- Tab content: CMO -->
+      <div id="tab-cmo" class="tab-content hidden">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+
+          <div class="article-card bg-white rounded-xl overflow-hidden border border-[#E5E0D8]">
+            <div class="img-green h-36"></div>
+            <div class="p-5">
+              <span class="tag-growth text-[10px] font-semibold px-2 py-0.5 rounded-full">GROWTH</span>
+              <h4 class="font-serif text-[17px] leading-snug text-[#0C1628] mt-2 mb-2">
+                Distribution européenne : les canaux qui convertissent pour les B2B tech
+              </h4>
+              <p class="text-[12px] text-[#9CA3AF]">10 min de lecture · Gratuit</p>
+            </div>
+          </div>
+
+          <div class="article-card bg-white rounded-xl overflow-hidden border border-[#E5E0D8]">
+            <div class="img-amber h-36"></div>
+            <div class="p-5">
+              <span class="tag-growth text-[10px] font-semibold px-2 py-0.5 rounded-full">ACQUISITION</span>
+              <h4 class="font-serif text-[17px] leading-snug text-[#0C1628] mt-2 mb-2">
+                Comment Semrush, HubSpot Europe et Klaviyo ont construit leur brand marketing
+              </h4>
+              <p class="text-[12px] text-[#9CA3AF]">12 min de lecture · Premium</p>
+            </div>
+          </div>
+
+          <div class="article-card bg-white rounded-xl overflow-hidden border border-[#E5E0D8]">
+            <div class="img-rose h-36"></div>
+            <div class="p-5">
+              <span class="tag-growth text-[10px] font-semibold px-2 py-0.5 rounded-full">RETENTION</span>
+              <h4 class="font-serif text-[17px] leading-snug text-[#0C1628] mt-2 mb-2">
+                NPS, CSAT, CES : les métriques de rétention que scrutent les CMO d'Europe
+              </h4>
+              <p class="text-[12px] text-[#9CA3AF]">9 min de lecture · Gratuit</p>
+            </div>
+          </div>
+
+        </div>
+        <div class="mt-6 flex items-center justify-between">
+          <p class="text-[13px] text-[#6B7280]">74 articles dans cette collection</p>
+          <a href="#" class="text-[13px] font-semibold text-[#2563EB] hover:text-[#1D4ED8]">
+            Voir toute la collection CMO &amp; Growth →
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════
+       FORMATS — ARTICLES, PODCASTS, VIDÉOS
+  ══════════════════════════════════════════════════════ -->
+  <section id="formats" class="max-w-7xl mx-auto px-6 py-20">
+
+    <div class="mb-10">
+      <p class="text-[11px] font-semibold tracking-[0.16em] uppercase text-[#9CA3AF] mb-3">Nos formats</p>
+      <h2 class="font-serif text-[38px] lg:text-[46px] text-[#0C1628]">
+        Articles, podcasts et vidéos
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+      <!-- Articles -->
+      <div class="bg-white rounded-2xl border border-[#E5E0D8] p-7">
+        <div class="w-10 h-10 bg-[#DBEAFE] rounded-xl flex items-center justify-center mb-5">
+          <svg class="w-5 h-5 text-[#1E40AF]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+          </svg>
+        </div>
+        <div class="text-[11px] font-semibold tracking-[0.12em] uppercase text-[#9CA3AF] mb-2">Articles</div>
+        <h3 class="font-serif text-[22px] text-[#0C1628] mb-3">80% du contenu</h3>
+        <p class="text-[14px] text-[#6B7280] leading-relaxed mb-5">
+          Des analyses longues et approfondies, rédigées par notre équipe de journalistes spécialisés. Entre 10 et 15 minutes de lecture. 3 à 4 nouvelles publications par semaine.
+        </p>
+        <div class="space-y-3 mb-6">
+          <div class="flex items-center gap-3 border-t border-[#F3F4F6] pt-3">
+            <div class="w-10 h-10 img-blue rounded-lg flex-shrink-0"></div>
+            <p class="text-[12px] text-[#374151] leading-tight font-medium">Les agents IA en production : retours de 8 CTO</p>
+          </div>
+          <div class="flex items-center gap-3 border-t border-[#F3F4F6] pt-3">
+            <div class="w-10 h-10 img-green rounded-lg flex-shrink-0"></div>
+            <p class="text-[12px] text-[#374151] leading-tight font-medium">Comment Qonto a construit sa machine growth</p>
+          </div>
+          <div class="flex items-center gap-3 border-t border-[#F3F4F6] pt-3">
+            <div class="w-10 h-10 img-rose rounded-lg flex-shrink-0"></div>
+            <p class="text-[12px] text-[#374151] leading-tight font-medium">BlaBlaCar : Nicolas Brusson sur 10 ans de pivots</p>
+          </div>
+        </div>
+        <a href="#" class="text-[13px] font-semibold text-[#2563EB] hover:text-[#1D4ED8]">Parcourir les articles →</a>
+      </div>
+
+      <!-- Podcasts -->
+      <div class="bg-white rounded-2xl border border-[#E5E0D8] p-7">
+        <div class="w-10 h-10 bg-[#EDE9FE] rounded-xl flex items-center justify-center mb-5">
+          <svg class="w-5 h-5 text-[#5B21B6]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"/>
+          </svg>
+        </div>
+        <div class="text-[11px] font-semibold tracking-[0.12em] uppercase text-[#9CA3AF] mb-2">Podcasts</div>
+        <h3 class="font-serif text-[22px] text-[#0C1628] mb-3">En profondeur</h3>
+        <p class="text-[14px] text-[#6B7280] leading-relaxed mb-5">
+          Des conversations longues avec les décideurs tech européens. Pour les trajets, le sport, ou simplement quand vous voulez une immersion totale dans un sujet.
+        </p>
+        <div class="space-y-3 mb-6">
+          <div class="flex items-center gap-3 border-t border-[#F3F4F6] pt-3">
+            <div class="w-10 h-10 bg-[#EDE9FE] rounded-lg flex items-center justify-center flex-shrink-0">
+              <svg class="w-4 h-4 text-[#5B21B6]" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+            <div>
+              <p class="text-[12px] text-[#374151] font-medium">Ep. 82 — Doctolib &amp; l'IA en santé</p>
+              <p class="text-[11px] text-[#9CA3AF]">58 min</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-3 border-t border-[#F3F4F6] pt-3">
+            <div class="w-10 h-10 bg-[#EDE9FE] rounded-lg flex items-center justify-center flex-shrink-0">
+              <svg class="w-4 h-4 text-[#5B21B6]" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+            <div>
+              <p class="text-[12px] text-[#374151] font-medium">Ep. 81 — Back Market, l'économie circulaire tech</p>
+              <p class="text-[11px] text-[#9CA3AF]">1h 12 min</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-3 border-t border-[#F3F4F6] pt-3">
+            <div class="w-10 h-10 bg-[#EDE9FE] rounded-lg flex items-center justify-center flex-shrink-0">
+              <svg class="w-4 h-4 text-[#5B21B6]" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+            <div>
+              <p class="text-[12px] text-[#374151] font-medium">Ep. 80 — Qonto : de Paris à Madrid</p>
+              <p class="text-[11px] text-[#9CA3AF]">47 min</p>
+            </div>
+          </div>
+        </div>
+        <a href="#" class="text-[13px] font-semibold text-[#5B21B6] hover:opacity-80">Écouter les podcasts →</a>
+      </div>
+
+      <!-- Vidéos -->
+      <div class="bg-[#0C1628] rounded-2xl p-7 relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-40 h-40 bg-[#2563EB]/10 rounded-full -translate-y-1/2 translate-x-1/2"></div>
+        <div class="w-10 h-10 bg-[#1E3A5F] rounded-xl flex items-center justify-center mb-5">
+          <svg class="w-5 h-5 text-[#4B9FFF]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.069A1 1 0 0121 8.867v6.266a1 1 0 01-1.447.902L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+          </svg>
+        </div>
+        <div class="text-[11px] font-semibold tracking-[0.12em] uppercase text-[#4B5563] mb-2">Vidéos</div>
+        <h3 class="font-serif text-[22px] text-white mb-3">En développement</h3>
+        <p class="text-[14px] text-[#8B9CB0] leading-relaxed mb-5">
+          Nous développons notre offre vidéo : interviews en face-à-face, masterclasses exclusives, événements en replay. Rejoignez le Premium pour y accéder en priorité.
+        </p>
+        <div class="space-y-3 mb-6">
+          <div class="flex items-center gap-3 border-t border-[#1E2D40] pt-3">
+            <div class="w-10 h-10 img-blue rounded-lg flex-shrink-0 flex items-center justify-center">
+              <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+            <div>
+              <p class="text-[12px] text-[#D1D5DB] font-medium">Masterclass : M&amp;A pour les scale-ups</p>
+              <p class="text-[11px] text-[#4B5563]">Exclusif Premium</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-3 border-t border-[#1E2D40] pt-3">
+            <div class="w-10 h-10 img-purple rounded-lg flex-shrink-0 flex items-center justify-center">
+              <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+            <div>
+              <p class="text-[12px] text-[#D1D5DB] font-medium">Interview : CPO de Miro Europe</p>
+              <p class="text-[11px] text-[#4B5563]">Exclusif Premium</p>
+            </div>
+          </div>
+        </div>
+        <a href="#premium" class="text-[13px] font-semibold text-[#4B9FFF] hover:text-blue-300">Accéder aux vidéos Premium →</a>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════
+       ARCHIVES — CONTENU HISTORIQUE
+  ══════════════════════════════════════════════════════ -->
+  <section class="bg-[#F0EDE6] border-y border-[#E5E0D8] py-16 px-6">
+    <div class="max-w-7xl mx-auto">
+      <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
+
+        <div class="lg:max-w-xl">
+          <p class="text-[11px] font-semibold tracking-[0.16em] uppercase text-[#9CA3AF] mb-3">Archives</p>
+          <h2 class="font-serif text-[32px] lg:text-[38px] text-[#0C1628] mb-3">
+            Nouveau sur Le Ticket ? Commencez ici.
+          </h2>
+          <p class="text-[15px] text-[#6B7280] leading-relaxed">
+            Nos articles les plus lus depuis la création du Ticket en 2020 — une sélection des analyses intemporelles qui ont défini notre ligne éditoriale.
+          </p>
+        </div>
+
+        <div class="w-full lg:max-w-lg space-y-3">
+
+          <a href="#" class="flex items-center gap-4 bg-white rounded-xl border border-[#E5E0D8] p-4 hover:shadow-md transition-shadow group">
+            <div class="img-blue w-14 h-14 rounded-lg flex-shrink-0"></div>
+            <div class="flex-1 min-w-0">
+              <h4 class="font-serif text-[15px] leading-snug text-[#0C1628] group-hover:text-[#2563EB] transition-colors">
+                Les 10 leçons product de l'histoire de Spotify
+              </h4>
+              <p class="text-[12px] text-[#9CA3AF] mt-0.5">87 000 lectures · Toujours d'actualité</p>
+            </div>
+            <span class="text-[#9CA3AF] group-hover:text-[#2563EB] text-lg">→</span>
+          </a>
+
+          <a href="#" class="flex items-center gap-4 bg-white rounded-xl border border-[#E5E0D8] p-4 hover:shadow-md transition-shadow group">
+            <div class="img-green w-14 h-14 rounded-lg flex-shrink-0"></div>
+            <div class="flex-1 min-w-0">
+              <h4 class="font-serif text-[15px] leading-snug text-[#0C1628] group-hover:text-[#2563EB] transition-colors">
+                Le guide complet du product discovery pour équipes senior
+              </h4>
+              <p class="text-[12px] text-[#9CA3AF] mt-0.5">54 000 lectures · 2022, mis à jour 2024</p>
+            </div>
+            <span class="text-[#9CA3AF] group-hover:text-[#2563EB] text-lg">→</span>
+          </a>
+
+          <a href="#" class="flex items-center gap-4 bg-white rounded-xl border border-[#E5E0D8] p-4 hover:shadow-md transition-shadow group">
+            <div class="img-amber w-14 h-14 rounded-lg flex-shrink-0"></div>
+            <div class="flex-1 min-w-0">
+              <h4 class="font-serif text-[15px] leading-snug text-[#0C1628] group-hover:text-[#2563EB] transition-colors">
+                Comment BlaBlaCar a failli mourir, et ce que ça enseigne sur la résilience tech
+              </h4>
+              <p class="text-[12px] text-[#9CA3AF] mt-0.5">61 000 lectures · Notre plus grand succès</p>
+            </div>
+            <span class="text-[#9CA3AF] group-hover:text-[#2563EB] text-lg">→</span>
+          </a>
+
+          <a href="#" class="text-[13px] font-semibold text-[#2563EB] hover:text-[#1D4ED8] block text-right mt-4">
+            Parcourir les 500+ articles des archives →
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════
+       TESTIMONIALS — "ILS LISENT LE TICKET"
+  ══════════════════════════════════════════════════════ -->
+  <section class="bg-[#0C1628] py-20 px-6">
+    <div class="max-w-7xl mx-auto">
+
+      <div class="text-center mb-14">
+        <p class="text-[11px] font-semibold tracking-[0.18em] uppercase text-[#4B9FFF] mb-4">Témoignages</p>
+        <h2 class="font-serif text-[40px] lg:text-[48px] text-white mb-3">
+          Lu par les meilleurs profils<br class="hidden md:block" /> de la tech européenne
+        </h2>
+        <p class="text-[15px] text-[#8B9CB0]">
+          Pas seulement par des débutants. Nos lecteurs Premium sont des décideurs.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+        <div class="bg-[#111F32] rounded-2xl p-7 border border-[#1E2D40]">
+          <div class="flex gap-1 mb-5">
+            <span class="text-[#F59E0B]">★★★★★</span>
+          </div>
+          <p class="text-[15px] text-[#D1D5DB] leading-relaxed mb-6">
+            "Le Ticket est la seule publication que je lis systématiquement de A à Z chaque semaine. Le niveau d'analyse dépasse largement ce qu'on trouve ailleurs."
+          </p>
+          <div class="flex items-center gap-3 pt-5 border-t border-[#1E2D40]">
+            <div class="w-9 h-9 rounded-full img-blue flex items-center justify-center text-white text-xs font-bold">TV</div>
+            <div>
+              <p class="text-white text-[13px] font-semibold">Thomas V.</p>
+              <p class="text-[#6B7280] text-[12px]">CPO, Scale-up française (700 pers.)</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-[#111F32] rounded-2xl p-7 border border-[#1E2D40]">
+          <div class="flex gap-1 mb-5">
+            <span class="text-[#F59E0B]">★★★★★</span>
+          </div>
+          <p class="text-[15px] text-[#D1D5DB] leading-relaxed mb-6">
+            "Des analyses qui vont au fond des sujets. Exactement ce dont nos équipes dirigeantes ont besoin pour rester au niveau des meilleures entreprises tech."
+          </p>
+          <div class="flex items-center gap-3 pt-5 border-t border-[#1E2D40]">
+            <div class="w-9 h-9 rounded-full img-green flex items-center justify-center text-white text-xs font-bold">AC</div>
+            <div>
+              <p class="text-white text-[13px] font-semibold">Amélie C.</p>
+              <p class="text-[#6B7280] text-[12px]">CEO, Startup B2B SaaS (Series B)</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-[#111F32] rounded-2xl p-7 border border-[#1E2D40]">
+          <div class="flex gap-1 mb-5">
+            <span class="text-[#F59E0B]">★★★★★</span>
+          </div>
+          <p class="text-[15px] text-[#D1D5DB] leading-relaxed mb-6">
+            "La référence pour comprendre comment les meilleures équipes tech travaillent en Europe. J'offre des abonnements Premium à toute mon équipe de direction."
+          </p>
+          <div class="flex items-center gap-3 pt-5 border-t border-[#1E2D40]">
+            <div class="w-9 h-9 rounded-full img-purple flex items-center justify-center text-white text-xs font-bold">MB</div>
+            <div>
+              <p class="text-white text-[13px] font-semibold">Marc B.</p>
+              <p class="text-[#6B7280] text-[12px]">CTO, Licorne européenne</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════
+       PREMIUM OFFER
+  ══════════════════════════════════════════════════════ -->
+  <section id="premium" class="max-w-7xl mx-auto px-6 py-24">
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+
+      <!-- Left: Copy -->
+      <div>
+        <div class="inline-flex items-center gap-2 mb-6">
+          <div class="w-5 h-5 rounded-full bg-[#F59E0B] flex items-center justify-center">
+            <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          </div>
+          <span class="text-[12px] font-semibold text-[#92400E] tracking-wide uppercase">Le Ticket Premium</span>
+        </div>
+
+        <h2 class="font-serif text-[42px] lg:text-[52px] leading-tight text-[#0C1628] mb-5">
+          Accédez à l'intégralité du Ticket
+        </h2>
+        <p class="text-[16px] text-[#4B5563] leading-relaxed mb-8">
+          Notre modèle est celui d'un média de niche à destination des professionnels. Les meilleurs contenus, les analyses les plus approfondies, sont réservés aux membres Premium.
+        </p>
+
+        <!-- Benefits list -->
+        <ul class="space-y-4 mb-8">
+          <li class="flex items-start gap-3">
+            <div class="w-5 h-5 rounded-full bg-[#D1FAE5] flex items-center justify-center flex-shrink-0 mt-0.5">
+              <svg class="w-3 h-3 text-[#065F46]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+            </div>
+            <div>
+              <p class="text-[14px] font-semibold text-[#0C1628]">Accès illimité aux archives</p>
+              <p class="text-[13px] text-[#6B7280]">500+ articles depuis 2020, intégralement disponibles</p>
+            </div>
+          </li>
+          <li class="flex items-start gap-3">
+            <div class="w-5 h-5 rounded-full bg-[#D1FAE5] flex items-center justify-center flex-shrink-0 mt-0.5">
+              <svg class="w-3 h-3 text-[#065F46]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+            </div>
+            <div>
+              <p class="text-[14px] font-semibold text-[#0C1628]">Articles premium exclusifs</p>
+              <p class="text-[13px] text-[#6B7280]">Les analyses les plus pointues, non accessibles en gratuit</p>
+            </div>
+          </li>
+          <li class="flex items-start gap-3">
+            <div class="w-5 h-5 rounded-full bg-[#D1FAE5] flex items-center justify-center flex-shrink-0 mt-0.5">
+              <svg class="w-3 h-3 text-[#065F46]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+            </div>
+            <div>
+              <p class="text-[14px] font-semibold text-[#0C1628]">Canal WhatsApp Premium</p>
+              <p class="text-[13px] text-[#6B7280]">Actualité tech en temps réel, partagée directement sur votre téléphone</p>
+            </div>
+          </li>
+          <li class="flex items-start gap-3">
+            <div class="w-5 h-5 rounded-full bg-[#D1FAE5] flex items-center justify-center flex-shrink-0 mt-0.5">
+              <svg class="w-3 h-3 text-[#065F46]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+            </div>
+            <div>
+              <p class="text-[14px] font-semibold text-[#0C1628]">Événements &amp; masterclasses exclusifs</p>
+              <p class="text-[13px] text-[#6B7280]">Rencontres avec les experts, accès en replay aux conférences</p>
+            </div>
+          </li>
+          <li class="flex items-start gap-3">
+            <div class="w-5 h-5 rounded-full bg-[#D1FAE5] flex items-center justify-center flex-shrink-0 mt-0.5">
+              <svg class="w-3 h-3 text-[#065F46]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+            </div>
+            <div>
+              <p class="text-[14px] font-semibold text-[#0C1628]">Vidéos &amp; podcasts en accès prioritaire</p>
+              <p class="text-[13px] text-[#6B7280]">Toute la production multimédia du Ticket</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Right: Pricing card -->
+      <div>
+        <div class="bg-[#0C1628] rounded-2xl p-8 text-white relative overflow-hidden">
+          <div class="absolute top-0 right-0 w-48 h-48 bg-[#2563EB]/15 rounded-full -translate-y-1/2 translate-x-1/4"></div>
+
+          <!-- Individual plan -->
+          <div class="mb-8 pb-8 border-b border-[#1E2D40]">
+            <p class="text-[11px] font-semibold tracking-[0.14em] uppercase text-[#4B9FFF] mb-3">Abonnement individuel</p>
+            <div class="flex items-end gap-2 mb-1">
+              <span class="font-serif text-[52px] text-white leading-none">15€</span>
+              <span class="text-[#8B9CB0] text-[15px] pb-2">/ mois</span>
+            </div>
+            <p class="text-[13px] text-[#6B7280] mb-6">ou 120€/an — soit 2 mois offerts</p>
+            <a href="#" class="block w-full bg-[#2563EB] text-white text-[14px] font-semibold py-3.5 rounded-xl text-center hover:bg-[#1D4ED8] transition-colors">
+              Commencer — 14 jours gratuits
+            </a>
+            <p class="text-center text-[12px] text-[#6B7280] mt-3">Sans engagement · Annulable à tout moment</p>
+          </div>
+
+          <!-- Team plan -->
+          <div>
+            <p class="text-[11px] font-semibold tracking-[0.14em] uppercase text-[#F59E0B] mb-3">Abonnement équipe</p>
+            <p class="text-[15px] text-[#D1D5DB] leading-relaxed mb-5">
+              Pour les équipes de direction. Tarifs dégressifs à partir de 5 licences. Facturation entreprise disponible.
+            </p>
+            <a href="#" class="block w-full border border-[#2D4A6A] text-[#8B9CB0] text-[14px] font-semibold py-3.5 rounded-xl text-center hover:border-[#4B9FFF] hover:text-[#4B9FFF] transition-colors">
+              Nous contacter pour un devis →
+            </a>
+          </div>
+        </div>
+
+        <!-- Trust signals below card -->
+        <div class="mt-4 flex flex-wrap gap-4 justify-center text-[12px] text-[#9CA3AF]">
+          <span class="flex items-center gap-1.5">
+            <svg class="w-3.5 h-3.5 text-[#059669]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/></svg>
+            Paiement sécurisé
+          </span>
+          <span class="flex items-center gap-1.5">
+            <svg class="w-3.5 h-3.5 text-[#059669]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+            14 jours d'essai gratuit
+          </span>
+          <span class="flex items-center gap-1.5">
+            <svg class="w-3.5 h-3.5 text-[#059669]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+            Facture disponible
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════
+       NEWSLETTER CTA
+  ══════════════════════════════════════════════════════ -->
+  <section class="bg-[#EEF2FF] border-t border-[#DBEAFE] py-16 px-6">
+    <div class="max-w-2xl mx-auto text-center">
+      <p class="text-[11px] font-semibold tracking-[0.16em] uppercase text-[#6366F1] mb-4">Newsletter</p>
+      <h2 class="font-serif text-[32px] lg:text-[38px] text-[#0C1628] mb-3">
+        Pas encore prêt pour le Premium ?
+      </h2>
+      <p class="text-[16px] text-[#4B5563] leading-relaxed mb-7">
+        Recevez notre sélection hebdomadaire gratuite — les articles les plus importants de la semaine, directement dans votre boîte mail.
+      </p>
+      <form class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto" onsubmit="return false;">
+        <input
+          type="email"
+          placeholder="votre@email.com"
+          class="flex-1 px-4 py-3 rounded-xl border border-[#DBEAFE] bg-white text-[14px] text-[#0C1628] placeholder-[#9CA3AF] focus:outline-none focus:ring-2 focus:ring-[#2563EB]/30 focus:border-[#2563EB]"
+        />
+        <button
+          type="submit"
+          class="bg-[#2563EB] text-white font-semibold px-5 py-3 rounded-xl text-[14px] hover:bg-[#1D4ED8] transition-colors whitespace-nowrap"
+        >
+          S'inscrire gratuitement
+        </button>
+      </form>
+      <p class="text-[12px] text-[#9CA3AF] mt-4">Sans spam. Désabonnement en un clic.</p>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════
+       FOOTER
+  ══════════════════════════════════════════════════════ -->
+  <footer class="bg-[#0C1628] text-[#6B7280] px-6 py-14">
+    <div class="max-w-7xl mx-auto">
+
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+
+        <!-- Brand column -->
+        <div class="md:col-span-1">
+          <a href="/" class="font-serif text-[26px] text-white block mb-3">Le Ticket</a>
+          <p class="text-[13px] leading-relaxed text-[#4B5563] mb-4">
+            Le média des équipes tech européennes qui pensent à l'échelle mondiale.
+          </p>
+          <div class="flex gap-3">
+            <a href="#" class="w-8 h-8 rounded-lg bg-[#1E2D40] flex items-center justify-center hover:bg-[#2D4A6A] transition-colors">
+              <svg class="w-4 h-4 text-[#8B9CB0]" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </a>
+            <a href="#" class="w-8 h-8 rounded-lg bg-[#1E2D40] flex items-center justify-center hover:bg-[#2D4A6A] transition-colors">
+              <svg class="w-4 h-4 text-[#8B9CB0]" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Contenus -->
+        <div>
+          <h4 class="text-white text-[13px] font-semibold mb-4 uppercase tracking-wider">Contenus</h4>
+          <ul class="space-y-2.5 text-[13px]">
+            <li><a href="#" class="hover:text-white transition-colors">Tous les articles</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Intelligence Artificielle</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Product Management</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Growth &amp; Marketing</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Leadership &amp; Stratégie</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Podcasts</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Archives</a></li>
+          </ul>
+        </div>
+
+        <!-- Collections -->
+        <div>
+          <h4 class="text-white text-[13px] font-semibold mb-4 uppercase tracking-wider">Collections</h4>
+          <ul class="space-y-2.5 text-[13px]">
+            <li><a href="#" class="hover:text-white transition-colors">CEO &amp; Fondateurs</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">CPO &amp; Product Leaders</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">CTO &amp; Engineering</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">CMO &amp; Growth</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Chief of Staff</a></li>
+          </ul>
+        </div>
+
+        <!-- Le Ticket -->
+        <div>
+          <h4 class="text-white text-[13px] font-semibold mb-4 uppercase tracking-wider">Le Ticket</h4>
+          <ul class="space-y-2.5 text-[13px]">
+            <li><a href="#" class="hover:text-white transition-colors">À propos</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Notre équipe</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Premium</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Newsletter gratuite</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Contacter la rédaction</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Partenariats B2B</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="border-t border-[#1E2D40] pt-6 flex flex-col md:flex-row justify-between items-center gap-4 text-[12px]">
+        <p>© 2026 Le Ticket. Tous droits réservés.</p>
+        <div class="flex gap-5">
+          <a href="#" class="hover:text-white transition-colors">Mentions légales</a>
+          <a href="#" class="hover:text-white transition-colors">Politique de confidentialité</a>
+          <a href="#" class="hover:text-white transition-colors">CGU</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- ═══════════════════════════════════════════════════
+       JAVASCRIPT
+  ══════════════════════════════════════════════════════ -->
+  <script>
+    // Mobile menu toggle
+    function toggleMenu() {
+      const menu = document.getElementById('mobile-menu');
+      menu.classList.toggle('hidden');
+    }
+
+    // Tab switching for collections
+    function switchTab(tabId) {
+      // Hide all tab contents
+      document.querySelectorAll('.tab-content').forEach(el => {
+        el.classList.add('hidden');
+      });
+
+      // Deactivate all tab buttons
+      document.querySelectorAll('.tab-btn').forEach(el => {
+        el.classList.remove('active');
+        el.classList.add('text-[#6B7280]', 'border-[#D1C9BC]');
+        el.classList.remove('text-white', 'border-[#0C1628]');
+      });
+
+      // Show selected tab content
+      document.getElementById(tabId).classList.remove('hidden');
+
+      // Activate clicked button
+      event.currentTarget.classList.add('active');
+      event.currentTarget.classList.remove('text-[#6B7280]', 'border-[#D1C9BC]');
+    }
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+      link.addEventListener('click', function(e) {
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        const target = document.querySelector(targetId);
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
